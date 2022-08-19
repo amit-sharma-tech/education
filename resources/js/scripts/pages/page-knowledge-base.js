@@ -3,10 +3,9 @@
     File Name: page-knowledge-base.js
     Description: Knowledge Base Page Content js
     ----------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-    Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+Version: 1.0
+Author: Amit Sharma
 ==========================================================================================*/
 $(document).ready(function () {
     // knowledge-base search

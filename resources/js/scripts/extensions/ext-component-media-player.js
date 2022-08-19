@@ -2,10 +2,9 @@
     File Name: ext-component-media-player.js
     Description:extra components media player using Plyr plugin
     --------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
+    Item Name: Bytepillar
     Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Author: Amit Sharma
 ==========================================================================================*/
 $(document).ready(function () {
   // video player  define

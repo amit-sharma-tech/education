@@ -2,10 +2,9 @@
     File Name: ext-component-ratings.js
     Description: extra components - ratings using RateYo! plugin
     --------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
+    Item Name: Bytepillar
     Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Author: Amit Sharma
 ==========================================================================================*/
 
 $(function () {

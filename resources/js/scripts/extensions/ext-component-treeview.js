@@ -2,10 +2,9 @@
     File Name: ext-component-treeview.js
     Description: extra components treeview
     --------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-    Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+Version: 1.0
+Author: Amit Sharma
 ==========================================================================================*/
 $(document).ready(function () {
   // color variable define here

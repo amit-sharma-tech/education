@@ -1,0 +1,173 @@
+{
+  "menu": [
+    {
+      "url": "dashboard/analytics",
+      "name": "Dashboard",
+      "slug": "dashboard-ecommerce",
+      "icon": "desktop"
+    },
+    {
+      "url": "app/email",
+      "name": "Center Certificate",
+      "slug": "app-email",
+      "icon": "notebook"
+    },
+    {
+      "url": "app/chat",
+      "name": "Authority letter",
+      "slug": "app-chat",
+      "icon": "comments"
+    },
+    {
+      "url": "app/todo",
+      "name": "Identity Card",
+      "slug": "app-todo",
+      "icon": "check-alt"
+    },
+    {
+      "url": "affiliate/profile",
+      "name": "My Profile",
+      "slug": "affiliate-profile",
+      "icon": "calendar"
+    },
+    {
+      "url": "app/kanban",
+      "name": "Course Mgmt.",
+      "slug": "app-kanban",
+      "icon": "grid"
+    },
+    {
+      "url": "#",
+      "name": "University Course",
+      "slug": "invoice",
+      "icon": "notebook",
+      "submenu": [
+        {
+          "url": "app/invoice/list",
+          "name": "Invoice List",
+          "slug": "app-invoice-list",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "app/invoice/view",
+          "name": "Invoice",
+          "slug": "app-invoice-view",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "app/invoice/edit",
+          "name": "Invoice Edit",
+          "slug": "app-invoice-edit",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "app/invoice/add",
+          "name": "Invoice Add",
+          "slug": "app-invoice-add",
+          "icon": "bx bx-right-arrow-alt"
+        }
+      ]
+    },
+     {
+      "url": "#",
+      "name": "Student Management",
+      "slug": "user",
+      "icon": "users",
+      "submenu": [
+        {
+          "url": "app/users/list",
+          "name": "List",
+          "slug": "app-users-list",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "app/users/view",
+          "name": "View",
+          "slug": "app-users-view",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "app/users/edit",
+          "name": "Edit",
+          "slug": "app-users-edit",
+          "icon": "bx bx-right-arrow-alt"
+        }
+      ]
+    },
+    {
+      "url": "#",
+      "name": "Recharge Mgmt.",
+      "slug": "content",
+      "icon": "retweet",
+      "submenu": [
+        {
+          "url": "content/grid",
+          "name": "Grid",
+          "slug": "content-grid",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "content/typography",
+          "name": "Typography",
+          "slug": "content-typography",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "content/text-utilities",
+          "name": "Text Utilities",
+          "slug": "content-text-utilities",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "content/syntax-highlighter",
+          "name": "Syntax Highlighter",
+          "slug": "content-syntax-highlighter",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "content/helper-classes",
+          "name": "Helper Classes",
+          "slug": "content-helper-classes",
+          "icon": "bx bx-right-arrow-alt"
+        }
+      ]
+    },
+    {
+      "url": "content/colors",
+      "name": "Fees Records",
+      "slug": "content-colors",
+      "icon": "drop"
+    },
+    {
+      "url": "card/widgets",
+      "name": "Change Center Password",
+      "slug": "card-widgets",
+      "icon": "unlock",
+      "tagcustom": "badge badge-light-primary badge-pill badge-round float-right"
+    },
+    {
+      "url": "card/widgets",
+      "name": "Exam Mgmt.",
+      "slug": "card-widgets",
+      "icon": "pie-chart"
+    },
+    {
+      "url": "card/widgets",
+      "name": "Certificate Mgmt.",
+      "slug": "card-widgets",
+      "icon": "notebook"
+    },
+    {
+      "url": "card/widgets",
+      "name": "Print Mgmt,",
+      "slug": "card-widgets",
+      "icon": "morph-map"
+    },
+    {
+      "url": "card/widgets",
+      "name": "Log Out",
+      "slug": "card-widgets",
+      "icon": "thumbnails-small"
+    }
+  ]
+}

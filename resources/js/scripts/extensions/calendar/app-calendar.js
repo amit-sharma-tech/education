@@ -2,10 +2,9 @@
     File Name: toast-ui-calendar.js
     Description: toast-ui-calendar
     --------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-    Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+Version: 1.0
+Author: Amit Sharma
 ==========================================================================================*/
 'use strict';
 

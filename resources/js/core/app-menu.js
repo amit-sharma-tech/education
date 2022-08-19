@@ -3,10 +3,9 @@
   Description: Menu navigation, custom scrollbar, hover scroll bar, multilevel menu
   initialization and manipulations
   ----------------------------------------------------------------------------------------
-  Item Name: Frest HTML Admin Template
+  Item Name: Bytepillar
   Version: 1.0
-  Author: Pixinvent
-  Author URL: hhttp://www.themeforest.net/user/pixinvent
+  Author: Amit Sharma
 ==========================================================================================*/
 (function (window, document, $) {
   "use strict";

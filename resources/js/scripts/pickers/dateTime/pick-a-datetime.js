@@ -2,10 +2,9 @@
     File Name: picker-date-time.js
     Description: Pick a date/time Picker, Date Range Picker JS
     ----------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-    Version: 1.0
-    Author: Pixinvent
-    Author URL: hhttp://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+	  Version: 1.0
+	  Author: Amit Sharma
 ==========================================================================================*/
 (function(window, document, $) {
   'use strict';
