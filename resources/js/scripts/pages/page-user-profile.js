@@ -2,10 +2,9 @@
     File Name: page-user-profile.js
     Description: User Profile jQuery Intialization
     --------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-    Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+Version: 1.0
+Author: Amit Sharma
 ==========================================================================================*/
 
 $(document).ready(function () {

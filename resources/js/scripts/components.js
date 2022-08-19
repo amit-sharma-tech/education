@@ -2,10 +2,9 @@
   File Name: Components.js
   Description: For Generic Components.
   ----------------------------------------------------------------------------------------
-  Item Name: Frest HTML Admin Template
+  Item Name: Bytepillar
   Version: 1.0
-  Author: Pixinvent
-  Author URL: http://www.themeforest.net/user/pixinvent
+  Author: Amit Sharma
 ==========================================================================================*/
 
 (function (window, document, $) {

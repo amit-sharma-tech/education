@@ -2,10 +2,9 @@
     File Name: page-coming-soon.js
     Description: Coming Soon
     ----------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-    Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+Version: 1.0
+Author: Amit Sharma
 ==========================================================================================*/
 
 /*******************************

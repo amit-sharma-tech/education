@@ -2,10 +2,9 @@
   File Name: footer.js
   Description: Template footer js.
   ----------------------------------------------------------------------------------------
-  Item Name: Frest HTML Admin Template
- Version: 1.0
-  Author: Pixinvent
-  Author URL: hhttp://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+    Version: 1.0
+    Author: Amit Sharma
 ==========================================================================================*/
 
 //Check to see if the window is top if not then display button

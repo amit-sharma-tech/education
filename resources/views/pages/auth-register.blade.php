@@ -57,7 +57,7 @@
                 <hr>
                 <div class="text-center">
                   <small class="mr-25">Already have an account?</small>
-                  <a href="{{url('auth/login')}}"><small>Sign in</small> </a>
+                  <a href="{{url('auth/affiliates-login')}}"><small>Sign in</small> </a>
                 </div>
               </div>
             </div>

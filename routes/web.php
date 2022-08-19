@@ -19,6 +19,11 @@ use App\Http\Controllers\ExtensionsController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\frontend\HomeController;
 use App\Http\Controllers\frontend\AboutController;
+use App\Http\Controllers\frontend\LoginController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Affiliate\AffiliateDashboardController;
+use App\Http\Controllers\Affiliate\MyProfileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,16 +48,40 @@ Route::group(['prefix' => 'about'], function () {
 });
 
 
+Route::group(['prefix' => 'login'], function () {
+    Route::get('student-login', [LoginController::class, 'studentLogin'])->name('student-login');
+    Route::get('founder-info', [AboutController::class, 'founderInfo'])->name('founder-info');
+    Route::get('legal-document', [AboutController::class, 'legalDocument'])->name('legal-document');
+    Route::get('terms-and-condition', [AboutController::class, 'termsAndCondition'])->name('terms-and-condition');
+    Route::get('our-policy', [AboutController::class, 'ourPolicy'])->name('our-policy');
+    Route::get('more-service', [AboutController::class, 'moreService'])->name('more-service');
+});
+
+
 Auth::routes(['verify' => true]);
+Route::group(['prefix' => 'dashboard','middleware' => 'prevent-back-history'], function () {
+    Route::get('admin-dashboard', [AdminDashboardController::class, 'index'])->name('admin-dashboard')->middleware('is_admin');
+    Route::get('affiliates-dashboard', [AffiliateDashboardController::class, 'index'])->name('affiliates-dashboard')->middleware('is_affiliate');
+    // Route::get('affiliates-dashboard', [AffiliateDashboardController::class, 'index'])->name('student-dashboard')->middleware('is_student');
+    Route::get('analytics', [DashboardController::class, 'dashboardAnalytics'])->name('dashboard-analytics');
+});
+
+// form elements
+
+Route::group(['prefix' => 'affiliate'], function () {
+    Route::get('profile', [MyProfileController::class, 'affiliateProfile'])->name('affiliate-profile');
+    Route::post('getCityName', [MyProfileController::class, 'getCityByStateName'])->name('getCityName');
+    Route::put('submitProfile/{id}', [MyProfileController::class, 'submitAffiliateProfile'])->name('submit-affiliate-profile');
+});
 
 // dashboard Routes
 // Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce')->middleware('verified');
 // Route::get('/', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce');
 
-Route::group(['prefix' => 'dashboard'], function () {
+/* Route::group(['prefix' => 'dashboard'], function () {
     Route::get('ecommerce', [DashboardController::class, 'dashboardEcommerce'])->name('dashboard-ecommerce');
     Route::get('analytics', [DashboardController::class, 'dashboardAnalytics'])->name('dashboard-analytics');
-});
+}); */
 
 //Application Routes
 Route::group(['prefix' => 'app'], function () {
@@ -166,7 +195,16 @@ Route::group(['prefix' => 'page'], function () {
 
 // Authentication  Route
 Route::group(['prefix' => 'auth'], function () {
-    Route::get('login', [AuthenticationController::class, 'loginPage'])->name('auth-login');
+    Route::get('student-login', [AuthenticationController::class, 'studentLogin'])->name('student-login');
+    Route::get('affiliates-login', [AuthenticationController::class, 'affiliatesLogin'])->name('affiliates-login');
+    Route::get('admin-login', [AuthenticationController::class, 'adminLogin'])->name('admin-login');
+    Route::post('login-verfication', [AuthenticationController::class, 'loginVerfication'])->name('login-verfication');
+    Route::get('affiliate_register', [AuthenticationController::class, 'affiliatesRegister'])->name('affiliates-register');
+
+    Route::post('signup-verfication', [AuthenticationController::class, 'signupVerfication'])->name('signup-verfication');
+    Route::get('signout', [AuthenticationController::class,'signout'])->name('signout');
+
+    // Route::get('login', [AuthenticationController::class, 'loginPage'])->name('auth-login');
     Route::get('register', [AuthenticationController::class, 'registerPage'])->name('auth-register');
     Route::get('forgot-password', [AuthenticationController::class, 'forgetPasswordPage'])->name('auth-forgot-password');
     Route::get('reset-password', [AuthenticationController::class, 'resetPasswordPage'])->name('auth-reset-password');

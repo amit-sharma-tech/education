@@ -2,10 +2,9 @@
 	File Name: input-groups.js
 	Description: Input Groups js
 	----------------------------------------------------------------------------------------
-	Item Name: Frest HTML Admin Template
+	Item Name: Bytepillar
 	Version: 1.0
-	Author: PIXINVENT
-	Author URL: http://www.themeforest.net/user/pixinvent
+	Author: Amit Sharma
 ==========================================================================================*/
 
 (function (window, document, $) {

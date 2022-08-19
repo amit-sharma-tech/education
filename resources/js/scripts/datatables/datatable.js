@@ -2,10 +2,9 @@
     File Name: datatables-basic.js
     Description: Basic Datatable
     ----------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
+    Item Name: Bytepillar
     Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Author: Amit Sharma
 ==========================================================================================*/
 
 $(document).ready(function() {

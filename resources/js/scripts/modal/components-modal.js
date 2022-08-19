@@ -3,10 +3,9 @@
     Description: Modals are streamlined, but flexible, dialog prompts with the minimum
 				required functionality and smart defaults.
     ----------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-    Version: 1.0
-    Author: Pixinvent
-    Author URL: hhttp://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+	  Version: 1.0
+	  Author: Amit Sharma
 ==========================================================================================*/
 (function (window, document, $) {
   'use strict';

@@ -2,10 +2,9 @@
     File Name: app-todo.js
     Description: app-todo
     ----------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-   Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+	  Version: 1.0
+	  Author: Amit Sharma
 ==========================================================================================*/
 // Todo App variables
 var todoNewTasksidebar = $(".todo-new-task-sidebar"),

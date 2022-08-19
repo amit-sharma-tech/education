@@ -2,10 +2,9 @@ form = $('.validate-form'),/*===================================================
     File Name: page-account-settings.js
     Description: page user account settings
     ----------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-    Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+Version: 1.0
+Author: Amit Sharma
 ==========================================================================================*/
 
 (function (window, document, $) {

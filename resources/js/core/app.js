@@ -2,10 +2,9 @@
   File Name: app.js
   Description: Template related app JS.
   ----------------------------------------------------------------------------------------
-  Item Name: Frest HTML Admin Template
+  Item Name: Bytepillar
   Version: 1.0
-  Author: Pixinvent
-  Author URL: hhttp://www.themeforest.net/user/pixinvent
+  Author: Amit
 ==========================================================================================*/
 
 ; (function (window, document, $) {

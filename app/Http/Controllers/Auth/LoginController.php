@@ -39,7 +39,7 @@ class LoginController extends Controller
     }
 
     // Login
-    public function showLoginForm()
+    /* public function showLoginForm()
     {
         $pageConfigs = ['bodyCustomClass' => 'bg-full-screen-image'];
 
@@ -49,5 +49,5 @@ class LoginController extends Controller
                 'pageConfigs' => $pageConfigs
             ]
         );
-    }
+    } */
 }

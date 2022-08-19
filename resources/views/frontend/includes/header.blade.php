@@ -73,7 +73,16 @@
                   <li><a href="{{url('info/update')}}">Update</a></li>
                 </ul>
               </li>
-              <li><a href="{{url('home/contact-us')}}">Contact us</a>              
+              <li><a href="{{url('home/contact-us')}}">Contact us</a>     
+              <li><a href="#">Login</a>
+                <ul class="dropdown">
+                  <li><a href="{{url('auth/student-login')}}" target="__blank">Student Login</a></li>
+                  <li><a href="{{url('auth/affiliates-login')}}" target="__blank">Affiliates Login</a></li>
+                  {{-- <li><a href="{{url('associate-login')}}" target="__blank">Associate Login</a></li>
+                  <li><a href="{{url('college-login')}}" target="__blank">College Login</a></li>
+                  <li><a href="{{url('online-exam')}}" target="__blank">Online Exam</a></li> --}}
+                </ul>
+              </li>         
             </ul>
           </nav>
         </div>

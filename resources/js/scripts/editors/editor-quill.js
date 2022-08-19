@@ -2,10 +2,9 @@
 	File Name: editor-quill.js
 	Description: Quill is a modern rich text editor built for compatibility and extensibility.
 	----------------------------------------------------------------------------------------
-	Item Name: Frest HTML Admin Template
+	Item Name: Bytepillar
 	Version: 1.0
-	Author: GeeksLabs
-	Author URL: http://www.themeforest.net/user/geekslabs
+	Author: Amit Sharma
 ==========================================================================================*/
 (function (window, document, $) {
   'use strict';

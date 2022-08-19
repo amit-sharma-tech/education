@@ -34,6 +34,12 @@ class MenuServiceProvider extends ServiceProvider
         // $verticalOverlayMenuData = json_decode($verticalOverlayMenu);
 
         // share all menuData to all the views
-        \View::share('menuData', [$verticalMenuData, $horizontalMenuData, $verticalMenuBoxiconsData]);
+
+        //won menu file
+        $affiliatedMenuJson = file_get_contents(base_path('resources/data/menus/affiliates-menu.json'));
+
+        $affiliatedMenuJsonData = json_decode($affiliatedMenuJson);
+
+        \View::share('menuData', [$verticalMenuData, $horizontalMenuData, $verticalMenuBoxiconsData,$affiliatedMenuJsonData]);
     }
 }

@@ -2,10 +2,9 @@
     File Name: table-extended.js
     Description: table extended js
     ----------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-    Version: 1.0
-    Author: Pixinvent
-    Author URL: hhttp://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+	  Version: 1.0
+	  Author: Amit Sharma
 ==========================================================================================*/
 
 (function (window, document, $) {

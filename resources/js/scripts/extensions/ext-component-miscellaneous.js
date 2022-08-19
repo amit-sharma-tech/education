@@ -2,10 +2,9 @@
     File Name: ext-component-miscellaneous.js
     Description:Miscellaneous contain Clipboard, Context Menu, Idle timer and Numeral.Js components
     --------------------------------------------------------------------------------------
-    Item Name: Frest HTML Admin Template
-    Version: 1.0
-    Author: PIXINVENT
-    Author URL: http://www.themeforest.net/user/pixinvent
+    Item Name: Bytepillar
+Version: 1.0
+Author: Amit Sharma
 ==========================================================================================*/
 /*
 scrollToBottom plugin, chainable
