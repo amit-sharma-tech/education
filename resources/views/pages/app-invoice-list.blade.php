@@ -1,6 +1,6 @@
 @extends('layouts.contentLayoutMaster')
 {{-- page title --}}
-@section('title','Invoice List')
+@section('title','Admin List')
 {{-- vendor style --}}
 @section('vendor-styles')
 <link rel="stylesheet" type="text/css" href="{{asset('vendors/css/tables/datatable/dataTables.bootstrap4.min.css')}}">

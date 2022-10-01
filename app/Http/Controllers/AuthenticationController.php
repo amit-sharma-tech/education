@@ -52,8 +52,14 @@ class AuthenticationController extends Controller
             ])->first();
     if($user){
       if (Hash::check($request->password, $user->password)) {
-        $request->session()->regenerate();
-        return redirect()->route('admin-dashboard');
+        // $request->session()->regenerate();
+        // return redirect()->route('admin-dashboard');
+        if($request->typeValue == 1){
+          return redirect()->route('admin-dashboard');
+        }
+        else if($request->typeValue == 2){
+          return redirect()->route('affiliates-dashboard');
+        }
       } else {
         return back()->withErrors([
           'password' => 'Password does not matched.',
@@ -69,6 +75,7 @@ class AuthenticationController extends Controller
     
     if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => $request->get('typeValue')])){
       $request->session()->regenerate();
+      // dd([$request->session(),Session::all()]);
       if($request->get('typeValue') == 1){
         return redirect()->route('admin-dashboard');
       }

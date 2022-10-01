@@ -23,6 +23,8 @@ use App\Http\Controllers\frontend\LoginController;
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Affiliate\AffiliateDashboardController;
 use App\Http\Controllers\Affiliate\MyProfileController;
+use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\StudentController;
 
 
 /*
@@ -70,8 +72,43 @@ Route::group(['prefix' => 'dashboard','middleware' => 'prevent-back-history'], f
 
 Route::group(['prefix' => 'affiliate'], function () {
     Route::get('profile', [MyProfileController::class, 'affiliateProfile'])->name('affiliate-profile');
+    Route::get('editprofile', [MyProfileController::class, 'affiliateEditProfile'])->name('affiliate-Edit-profile');
     Route::post('getCityName', [MyProfileController::class, 'getCityByStateName'])->name('getCityName');
     Route::put('submitProfile/{id}', [MyProfileController::class, 'submitAffiliateProfile'])->name('submit-affiliate-profile');
+});
+
+
+//Admin Routes
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('course/addCourse', [CourseController::class, 'courseAddApplication'])->name('admin-univ-course-add');
+    Route::get('course/list', [CourseController::class, 'courseListApplication'])->name('admin-univ-course-list');
+    Route::post('course/submitAddCourse', [CourseController::class, 'coursesubmitAddCourse'])->name('admin-course-add-submit');
+    Route::post('course/deleteCourseFromList', [CourseController::class, 'deleteCourseFromListPost'])->name('delete-course-from-list');
+    Route::post('course/inactiveCourseFromList', [CourseController::class, 'inactiveCourseFromList'])->name('delete-course-from-list');
+    Route::get('course/admineditcourse/{id}', [CourseController::class, 'adminEditCourse'])->name('admin-edit-course');
+    Route::get('affiliate/affRegistration', [AdminDashboardController::class, 'affiliateRegistration'])->name('admin-affiliate-registration');
+    Route::get('affiliate/affiliateList', [AdminDashboardController::class, 'affiliateAllList'])->name('affiliate-list');
+    Route::post('affiliate/getCityNameList', [AdminDashboardController::class, 'getCityByStateName'])->name('getCityName');
+    Route::put('affiliate/submitAffiliateProfile', [AdminDashboardController::class, 'submitAdminAffiliateProfile'])->name('admin-affiliate-registration');
+    Route::post('affiliate/deleteAffiliateFromList', [AdminDashboardController::class, 'deleteAffiliateFromList'])->name('delete-affiliate-from-list');
+    Route::post('affiliate/inactiveAffiliateFromList', [AdminDashboardController::class, 'inactiveAffiliateFromList'])->name('delete-affiliate-from-list');
+
+    Route::get('student/stRegistration', [StudentController::class, 'studentRegistation'])->name('admin-student-registration');
+
+    Route::get('email', [ApplicationController::class, 'emailApplication'])->name('app-email');
+    Route::get('chat', [ApplicationController::class, 'chatApplication'])->name('app-chat');
+    Route::get('todo', [ApplicationController::class, 'todoApplication'])->name('app-todo');
+    Route::get('calendar', [ApplicationController::class, 'calendarApplication'])->name('app-calendar');
+    Route::get('kanban', [ApplicationController::class, 'kanbanApplication'])->name('app-kanban');
+    Route::get('invoice/view', [ApplicationController::class, 'invoiceApplication'])->name('app-invoice-view');
+    Route::get('invoice/list', [ApplicationController::class, 'invoiceListApplication'])->name('app-invoice-list');
+    Route::get('invoice/edit', [ApplicationController::class, 'invoiceEditApplication'])->name('app-invoice-edit');
+    Route::get('invoice/add', [ApplicationController::class, 'invoiceAddApplication'])->name('app-invoice-add');
+    Route::get('file-manager', [ApplicationController::class, 'fileManagerApplication'])->name('app-file-manager');
+    // User Route
+    Route::get('users/list', [UsersController::class, 'listUser'])->name('app-users-list');
+    Route::get('users/view', [UsersController::class, 'viewUser'])->name('app-users-view');
+    Route::get('users/edit', [UsersController::class, 'editUser'])->name('app-users-edit');
 });
 
 // dashboard Routes
