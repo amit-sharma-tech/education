@@ -48,8 +48,26 @@
   <div class="main-menu-content">
     <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
       {{-- {{dd($menuData[3]);}} --}}
-        @if(!empty($menuData[3]) && isset($menuData[3]))
-        @foreach ($menuData[3]->menu as $menu)
+      {{-- {{dd(auth()->user());}} --}}
+      @php
+        $menuList = [];
+      @endphp
+
+      @if (auth()->user() == null)
+        <script>window.location = "/";</script>
+      @elseif (auth()->user()->user_type == 1)
+        @php
+          $menuList = $menuData[4]; 
+        @endphp
+      @else
+        @php
+          $menuList = $menuData[3]; 
+          // $menuList = $menuData[0];
+        @endphp
+      @endif
+      
+      @if(!empty($menuList) && isset($menuList))
+        @foreach ($menuList->menu as $menu)
             @if(isset($menu->navheader))
                 <li class="navigation-header text-truncate"><span>{{$menu->navheader}}</span></li>
             @else
@@ -62,7 +80,7 @@
                     <span class="menu-title text-truncate">{{$menu->name}}</span>
                 @endif
                 @if(isset($menu->tag))
-                <span class="{{$menu->tagcustom}} ml-auto">{{$menu->tag}}</span>
+                  <span class="{{$menu->tagcustom}} ml-auto">{{$menu->tag}}</span>
                 @endif
             </a>
             @if(isset($menu->submenu))
@@ -71,7 +89,7 @@
             </li>
             @endif
         @endforeach
-        @endif
+      @endif
     </ul>
   </div>
 </div>

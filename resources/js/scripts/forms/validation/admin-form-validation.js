@@ -139,6 +139,9 @@ $(function () {
         'aff-samanwiedu-id':"required samanwieduId",
         'aff-inst-name' : "required centerName",
         'aff-dir-name' : "required centerName",
+        'aff-dir-password' :{
+          required:true
+        },
         'aff-contact-no' : "required mobileValidate",
         "aff-email-id" : {
           required:true,
@@ -176,14 +179,11 @@ $(document).ready(function($){
       });
       $.ajax({
         type:'post',
-        url:"getCityName",
+        url:"getCityNameList",
         data:{ssId:selectOption},
         success:function(data){
           let result = JSON.parse(data);
           if(result.info == 1){
-            // $('.cityList').css('display','block');
-            // document.getElementsByClassName('cityList').style.visibility = "visible";
-            let dropDown="";
             result.resp.forEach(ele => {
               $("#select-city").append("<option value='"+ele.id+"'>"+ele.name+"</option>");
             });
@@ -198,4 +198,118 @@ $(document).ready(function($){
       alert('Please select state name')
     }
   })
+  $('.affiliate-confirm-text').on('click', function () {
+    // alert('tyuioijhg')
+    let rowId = $(this).data('id');
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Are you sure want to delete this records!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirm',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn btn-danger ml-1',
+      buttonsStyling: false,
+      preConfirm: function (login) {
+          $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+          $.ajax({
+            type:'post',
+            url:"deleteAffiliateFromList",
+            data:{ccId:rowId},
+            success:function(data){
+              let result = JSON.parse(data);
+              if(result.info == 1){
+                $('#row_'+rowId).fadeOut('1000');
+                Swal.fire(
+                  {
+                    icon: "success",
+                    title: 'Deleted!',
+                    text: result.message,
+                    confirmButtonClass: 'btn btn-success',
+                  }
+                )
+              }
+              else{
+                Swal.fire(
+                  {
+                    icon: "errorz",
+                    title: 'Error!',
+                    text: result.message,
+                    confirmButtonClass: 'btn btn-success',
+                  }
+                )
+              }
+            }
+          })
+      },
+      allowOutsideClick: function () {
+        !Swal.isLoading()
+      }
+    })
+  });
+
+  $('.affiliate-activeInactive').on('click', function () {
+    // alert('tyuioijhg')
+    let rowId = $(this).data('id');
+    let typeName = $(this).data('name');
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Are you sure want to ${typeName} this records!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirm',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn btn-danger ml-1',
+      buttonsStyling: false,
+      preConfirm: function (login) {
+          $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+          $.ajax({
+            type:'post',
+            url:"inactiveAffiliateFromList",
+            data:{ccId:rowId,type:typeName},
+            success:function(data){
+              let result = JSON.parse(data);
+              if(result.info == 1){
+                setTimeout(() => {
+                  window.location.reload();
+                }, 3000);
+                Swal.fire(
+                  {
+                    icon: "success",
+                    title: `${typeName}`,
+                    text: result.message,
+                    confirmButtonClass: 'btn btn-success',
+                  }
+                )
+              }
+              else{
+                Swal.fire(
+                  {
+                    icon: "errorz",
+                    title: 'Error!',
+                    text: result.message,
+                    confirmButtonClass: 'btn btn-success',
+                  }
+                )
+              }
+            }
+          })
+      },
+      allowOutsideClick: function () {
+        !Swal.isLoading()
+      }
+    })
+  });
 })

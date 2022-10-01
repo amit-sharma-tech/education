@@ -1,0 +1,188 @@
+{
+  "menu": [
+    {
+      "url": "dashboard/analytics",
+      "name": "Admin Dashboard",
+      "slug": "dashboard-ecommerce",
+      "icon": "desktop"
+    },
+    {
+      "url": "app/email",
+      "name": "Center Certificate",
+      "slug": "app-email",
+      "icon": "notebook"
+    },
+    {
+      "url": "app/chat",
+      "name": "Authority letter",
+      "slug": "app-chat",
+      "icon": "comments"
+    },
+    {
+      "url": "app/todo",
+      "name": "Identity Card",
+      "slug": "app-todo",
+      "icon": "check-alt"
+    },
+    {
+      "url": "#",
+      "name": "Affiliate Management",
+      "slug": "affiliate-list",
+      "icon": "grid",
+      "submenu": [
+        {
+          "url": "admin/affiliate/affRegistration",
+          "name": "Affiliate Registration",
+          "slug": "admin-affiliate-registration",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "admin/affiliate/affiliateList",
+          "name": "Affiliate List",
+          "slug": "affiliate-list",
+          "icon": "bx bx-right-arrow-alt"
+        }
+      ]
+    },
+    {
+      "url": "#",
+      "name": "University Course",
+      "slug": "Courses",
+      "icon": "notebook",
+      "submenu": [
+        {
+          "url": "admin/course/addCourse",
+          "name": "Add Course",
+          "slug": "admin-univ-course-add",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+            "url": "admin/course/list",
+            "name": "Course List",
+            "slug": "admin-univ-course-list",
+            "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "admin/university/unStRegistration",
+          "name": "Student Registration",
+          "slug": "admin-university-registration",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "admin/university/unStList",
+          "name": "Student List",
+          "slug": "admin-university-list",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "admin/university/payFee",
+          "name": "Pay Fee",
+          "slug": "admin-university-fee",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+
+          "url": "admin/university/feeTransaction",
+          "name": "Student Fee Transaction",
+          "slug": "admin-university-transaction",
+          "icon": "bx bx-right-arrow-alt"
+        }
+      ]
+    },
+    {
+      "url": "#",
+      "name": "Student Management",
+      "slug": "user",
+      "icon": "users",
+      "submenu": [
+        {
+          "url": "admin/student/stRegistration",
+          "name": "Student Registration",
+          "slug": "admin-student-registration",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "admin/student/stList",
+          "name": "Student List",
+          "slug": "admin-student-list",
+          "icon": "bx bx-right-arrow-alt"
+        }
+      ]
+    },
+    {
+      "url": "#",
+      "name": "Recharge Mgmt.",
+      "slug": "content",
+      "icon": "retweet",
+      "submenu": [
+        {
+          "url": "content/grid",
+          "name": "Grid",
+          "slug": "content-grid",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "content/typography",
+          "name": "Typography",
+          "slug": "content-typography",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "content/text-utilities",
+          "name": "Text Utilities",
+          "slug": "content-text-utilities",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "content/syntax-highlighter",
+          "name": "Syntax Highlighter",
+          "slug": "content-syntax-highlighter",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "content/helper-classes",
+          "name": "Helper Classes",
+          "slug": "content-helper-classes",
+          "icon": "bx bx-right-arrow-alt"
+        }
+      ]
+    },
+    {
+      "url": "content/colors",
+      "name": "Fees Records",
+      "slug": "content-colors",
+      "icon": "drop"
+    },
+    {
+      "url": "card/widgets",
+      "name": "Change Center Password",
+      "slug": "card-widgets",
+      "icon": "unlock",
+      "tagcustom": "badge badge-light-primary badge-pill badge-round float-right"
+    },
+    {
+      "url": "card/widgets",
+      "name": "Exam Mgmt.",
+      "slug": "card-widgets",
+      "icon": "pie-chart"
+    },
+    {
+      "url": "card/widgets",
+      "name": "Certificate Mgmt.",
+      "slug": "card-widgets",
+      "icon": "notebook"
+    },
+    {
+      "url": "card/widgets",
+      "name": "Print Mgmt,",
+      "slug": "card-widgets",
+      "icon": "morph-map"
+    },
+    {
+      "url": "card/widgets",
+      "name": "Log Out",
+      "slug": "card-widgets",
+      "icon": "thumbnails-small"
+    }
+  ]
+}
