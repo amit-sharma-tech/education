@@ -34,26 +34,26 @@
             <thead>
               <tr>
                 <th>id</th>
-                <th>Course&nbsp;Name</th>
-                <th>User&nbsp;Name</th>
-                <th>Course&nbsp;Title</th>
-                <th>Course&nbsp;Duration</th>
-                <th>Course&nbsp;Type</th>
+                <th>Full&nbsp;Name</th>
+                <th>Student&nbsp;Email / Mobile</th>
+                <th>Father&nbsp;Name  / Mobile</th>
+                <th>Gender</th>
+                <th>Course&nbsp;Type / Name</th>
                 <th>Date</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($courseList as $item)
+              @foreach ($studentList as $item)
               <tr id="row_{{$item['id']}}">
                 <td>{{$item['count']}}</td>
-                {{-- <td><a href="{{asset('app/users/view')}}">dean3004</a> </td> --}}
-                <td>{{Str::ucfirst($item['course_name'])}}</td>
-                <td>{{Str::ucfirst($item['first_name'])}}&nbsp;&nbsp;{{Str::ucfirst($item['last_name'])}}</td>
-                <td>{{Str::ucfirst($item['course_title'])}}</td>
-                <td>{{$item['course_duration']}}</td>
-                <td>{{Str::ucfirst($item['course_type'])}}</td>
+                <td><a href="{{asset('app/users/view')}}">{{Str::ucfirst($item['first_name'])}}</a> </td>
+                {{-- <td>{{Str::ucfirst($item['first_name'])}}</td> --}}
+                <td>{{Str::ucfirst($item['emmail_id'])}}&nbsp;&nbsp;<p class="" style="color: #594747">{{Str::ucfirst($item['s_mobile'])}}</p></td>
+                <td>{{Str::ucfirst($item['father_name'])}}&nbsp;&nbsp;<p class="" style="color: #594747">{{Str::ucfirst($item['p_mobile'])}}</p></td>
+                <td>{{$item['gender']}}</td>
+                <td>{{Str::ucfirst($item['course_type'])}} &nbsp;&nbsp;<p class="" style="color: #594747">{{Str::ucfirst($item['course_name'])}}</p></td>
                 <td>{{date('Y-m-d',strtotime($item['created_at']))}}</td>
                 @if ($item['is_active'] == 'ACTIVE')
                     @php
@@ -75,7 +75,7 @@
                   <div class="dropdown">
                     <span class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></span>
                     <div class="dropdown-menu dropdown-menu-right" style="">
-                      <a class="dropdown-item" href="{{url('admin/course/admineditcourse/'.$item['id'])}}"><i class="bx bx-edit-alt mr-1"></i> edit</a>
+                      <a class="dropdown-item" href="{{url('admin/student/adminStudentEdit/'.$item['id'])}}"><i class="bx bx-edit-alt mr-1"></i> edit</a>
                       <a class="dropdown-item confirm-text" data-id="{{$item['id']}}" href="javascript:void(0);"><i class="bx bx-trash mr-1"></i> delete</a>
                       <a class="dropdown-item activeInactive" data-name="{{$name}}" data-id="{{$item['id']}}" href="javascript:void(0);" ><i class="{{$icon}}"></i>{{$statusName}}</a>
                     </div>

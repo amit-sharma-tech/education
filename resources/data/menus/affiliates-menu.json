@@ -31,65 +31,73 @@
       "icon": "calendar"
     },
     {
-      "url": "app/kanban",
-      "name": "Course Mgmt.",
-      "slug": "app-kanban",
-      "icon": "grid"
+      "url": "#",
+      "name": "Course Management",
+      "slug": "Courses",
+      "icon": "pie-chart",
+      "submenu": [
+        {
+          "url": "affiliate/course/addCourse",
+          "name": "Add Course",
+          "slug": "affiliate-univ-course-add",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+            "url": "affiliate/course/list",
+            "name": "Course List",
+            "slug": "affiliate-univ-course-list",
+            "icon": "bx bx-right-arrow-alt"
+        }
+      ]
     },
     {
       "url": "#",
       "name": "University Course",
-      "slug": "invoice",
+      "slug": "Courses",
       "icon": "notebook",
       "submenu": [
         {
-          "url": "app/invoice/list",
-          "name": "Invoice List",
-          "slug": "app-invoice-list",
+          "url": "affiliate/university/unStRegistration",
+          "name": "Student Registration",
+          "slug": "affiliate-university-registration",
           "icon": "bx bx-right-arrow-alt"
         },
         {
-          "url": "app/invoice/view",
-          "name": "Invoice",
-          "slug": "app-invoice-view",
-          "icon": "bx bx-right-arrow-alt"
-        },
-        {
-          "url": "app/invoice/edit",
-          "name": "Invoice Edit",
-          "slug": "app-invoice-edit",
-          "icon": "bx bx-right-arrow-alt"
-        },
-        {
-          "url": "app/invoice/add",
-          "name": "Invoice Add",
-          "slug": "app-invoice-add",
+          "url": "affiliate/university/unStList",
+          "name": "Student List",
+          "slug": "affiliate-university-list",
           "icon": "bx bx-right-arrow-alt"
         }
       ]
     },
-     {
+    {
       "url": "#",
       "name": "Student Management",
       "slug": "user",
       "icon": "users",
       "submenu": [
         {
-          "url": "app/users/list",
-          "name": "List",
-          "slug": "app-users-list",
+          "url": "affiliate/student/stRegistration",
+          "name": "Student Registration",
+          "slug": "affiliate-student-registration",
           "icon": "bx bx-right-arrow-alt"
         },
         {
-          "url": "app/users/view",
-          "name": "View",
-          "slug": "app-users-view",
+          "url": "affiliate/student/stList",
+          "name": "Student List",
+          "slug": "affiliate-student-list",
           "icon": "bx bx-right-arrow-alt"
         },
         {
-          "url": "app/users/edit",
-          "name": "Edit",
-          "slug": "app-users-edit",
+          "url": "affiliate/student/payFee",
+          "name": "Pay Fee",
+          "slug": "affiliate-student-fee",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "affiliate/student/feeTransaction",
+          "name": "Student Fee Transaction",
+          "slug": "affiliate-student-transaction",
           "icon": "bx bx-right-arrow-alt"
         }
       ]

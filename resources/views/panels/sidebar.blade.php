@@ -61,8 +61,8 @@
         @endphp
       @else
         @php
-          $menuList = $menuData[3]; 
-          // $menuList = $menuData[0];
+          // $menuList = $menuData[3]; 
+          $menuList = $menuData[0];
         @endphp
       @endif
       

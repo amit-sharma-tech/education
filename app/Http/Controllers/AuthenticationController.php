@@ -72,10 +72,17 @@ class AuthenticationController extends Controller
       ])->onlyInput('email');
     } */
 
-    
     if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'user_type' => $request->get('typeValue')])){
       $request->session()->regenerate();
+      // dd(Auth::user());
+      session()->put('user_id', Auth::user()->id);
+      session()->put('user_type', Auth::user()->user_type);
+      session()->put('first_name', Auth::user()->first_name);
+      session()->put('last_name', Auth::user()->last_name);
+      session()->put('user_name', Auth::user()->username);
       // dd([$request->session(),Session::all()]);
+      // dd($request->get('typeValue'));
+      // dd(session()->all());
       if($request->get('typeValue') == 1){
         return redirect()->route('admin-dashboard');
       }
@@ -151,12 +158,25 @@ class AuthenticationController extends Controller
   //sigout
 
   public function signout(Request $request){
-    Auth::logout();
-    $request->session()->invalidate();
- 
-    $request->session()->regenerateToken();
- 
-    return redirect('auth/affiliates-login');
+    if(!empty(auth()->user())){
+      $user_type =  auth()->user()->user_type;
+      Auth::logout();
+      $request->session()->invalidate();
+   
+      $request->session()->regenerateToken();
+      if($user_type == 2){
+        return redirect('auth/affiliates-login');
+      }
+      else if ($user_type == 1){
+        return redirect('auth/admin-login');
+      }
+      else{
+        return redirect('auth/student-login');
+      }
+    }
+    else{
+      return redirect('/');
+    }
   }
 
   //Register page

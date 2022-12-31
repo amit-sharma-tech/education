@@ -16,7 +16,7 @@
 <section class="users-list-wrapper">
   <div class="users-list-table">
     <div class="card">
-      @if (session('status'))
+        @if (session('status'))
           <div class="alert alert-success" role="alert">
             <button type="button" class="close" data-dismiss="alert">×</button>
             {{ session('status') }}
@@ -75,9 +75,9 @@
                   <div class="dropdown">
                     <span class="bx bx-dots-vertical-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu"></span>
                     <div class="dropdown-menu dropdown-menu-right" style="">
-                      <a class="dropdown-item" href="{{url('admin/course/admineditcourse/'.$item['id'])}}"><i class="bx bx-edit-alt mr-1"></i> edit</a>
+                      <a class="dropdown-item" href="{{url('affiliate/course/affiliateeditcourse/'.$item['id'])}}"><i class="bx bx-edit-alt mr-1"></i> edit</a>
                       <a class="dropdown-item confirm-text" data-id="{{$item['id']}}" href="javascript:void(0);"><i class="bx bx-trash mr-1"></i> delete</a>
-                      <a class="dropdown-item activeInactive" data-name="{{$name}}" data-id="{{$item['id']}}" href="javascript:void(0);" ><i class="{{$icon}}"></i>{{$statusName}}</a>
+                      {{-- <a class="dropdown-item activeInactive" data-name="{{$name}}" data-id="{{$item['id']}}" href="javascript:void(0);" ><i class="{{$icon}}"></i>{{$statusName}}</a> --}}
                     </div>
                   </div>
                 </td>
@@ -108,7 +108,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
   let tableName = $('#users-list-datatable').DataTable({
-        // order: [[0, 'asc']],
+        // order: [[1, 'desc']],
   })
   $('.confirm-text').on('click', function () {
     // alert('tyuioijhg')
@@ -142,68 +142,6 @@ $(document).ready(function() {
                   {
                     icon: "success",
                     title: 'Deleted!',
-                    text: result.message,
-                    confirmButtonClass: 'btn btn-success',
-                  }
-                )
-              }
-              else{
-                Swal.fire(
-                  {
-                    icon: "errorz",
-                    title: 'Error!',
-                    text: result.message,
-                    confirmButtonClass: 'btn btn-success',
-                  }
-                )
-              }
-            }
-          })
-      },
-      allowOutsideClick: function () {
-        !Swal.isLoading()
-      }
-    })
-  });
-
-  $('.activeInactive').on('click', function () {
-    // alert('tyuioijhg')
-    let rowId = $(this).data('id');
-    let typeName = $(this).data('name');
-    Swal.fire({
-      title: 'Are you sure?',
-      text: `Are you sure want to ${typeName} this records!`,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Confirm',
-      confirmButtonClass: 'btn btn-primary',
-      cancelButtonClass: 'btn btn-danger ml-1',
-      buttonsStyling: false,
-      preConfirm: function (login) {
-          $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-          });
-          $.ajax({
-            type:'post',
-            url:"inactiveCourseFromList",
-            data:{ccId:rowId,type:typeName},
-            success:function(data){
-              let result = JSON.parse(data);
-              if(result.info == 1){
-                // $('#row_'+rowId).fadeOut('1000');
-                /* let table = $('#users-list-datatable').DataTable();
-                table.ajax.reload(); */
-                setTimeout(() => {
-                  window.location.reload();
-                }, 3000);
-                Swal.fire(
-                  {
-                    icon: "success",
-                    title: `${typeName}`,
                     text: result.message,
                     confirmButtonClass: 'btn btn-success',
                   }

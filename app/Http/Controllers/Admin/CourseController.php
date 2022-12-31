@@ -19,17 +19,40 @@ class CourseController extends Controller
     }
 
     public function courseAddApplication(){
-        return view('pages.admin.admin-course-add');
+
+        $courseTypes = DB::select('select * from coursetypes order by id asc');
+        return view('pages.admin.admin-course-add',['courseType' => $courseTypes]);
     }
 
     public function courseListApplication(){
 
-        $courseList = DB::select('select c.*,u.username,u.first_name,u.last_name from courses as c inner join users as u on c.user_id = u.id order by c.id desc' );
-        return view('pages.admin.admin-course-list',['courseList'=>$courseList]);
+        $courseList = DB::select('select c.*,u.username,u.first_name,u.last_name,ct.course_name as courseName,ct.id as ct_id from courses as c inner join users as u on c.user_id = u.id inner join coursetypes as ct on c.course_type = ct.id order by c.id desc' );
+        $response = [];
+        $counter = 1;
+        // dd($courseList);
+        foreach ($courseList as $key => $value) {
+            $response[] = [
+                "id" => $value->id,
+                "count" => $counter,
+                "user_id" => $value->user_id,
+                "course_name" => $value->course_name,
+                "course_title" => $value->course_title,
+                "course_duration" => $value->course_duration,
+                "course_type" => $value->courseName,
+                "subject" => $value->subject,
+                "is_active" => $value->is_active,
+                "created_at" => $value->created_at,
+                "updated_at" => $value->updated_at,
+                "username" => $value->username,
+                "first_name" => $value->first_name,
+                "last_name" => $value->last_name
+            ];
+            $counter ++;
+        }
+        return view('pages.admin.admin-course-list',['courseList'=>$response]);
     }
 
     public function coursesubmitAddCourse(Request $request ){
-        
         $rules = [
             
             'course_name' => 'required',
@@ -51,7 +74,7 @@ class CourseController extends Controller
             try {
                 $courseAdd = [];
                 $courseAdd['course_name'] = $data['course_name'];
-                $courseAdd['user_id'] = auth()->user()->user_type;
+                $courseAdd['user_id'] = session('user_id');
                 $courseAdd['course_title'] = $data['course_title'];
                 $courseAdd['course_duration'] = $data['course_duration'];
                 $courseAdd['course_type'] = $data['course_type'];
@@ -64,7 +87,7 @@ class CourseController extends Controller
                 else{
                     $courseAdd = new Course;
                     $courseAdd->course_name = $data['course_name'];
-                    $courseAdd->user_id = auth()->user()->user_type;
+                    $courseAdd->user_id = session('user_id');
                     $courseAdd->course_title = $data['course_title'];
                     $courseAdd->course_duration = $data['course_duration'];
                     $courseAdd->course_type = $data['course_type'];
@@ -142,7 +165,8 @@ class CourseController extends Controller
             $CourseRes = \App\Models\Course::where(['id'=>$id])->get();
             $CourseCount = $CourseRes->count();
             if($CourseCount){
-                return view('pages.admin.admin-course-add',['courseName' => $CourseRes]);
+                $courseTypes = DB::select('select * from coursetypes order by id asc');
+                return view('pages.admin.admin-course-add',['courseName' => $CourseRes,'courseType' =>$courseTypes]);
             }
             else{
                 return redirect('admin/course/list')->with('failed',"Course are not avaliable");    

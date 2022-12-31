@@ -13,7 +13,7 @@ class AffiliateDashboardController extends Controller
     }
     
     public function index(Request $request){
-        // dd(auth()->user()->user_type);
+        // dd(auth()->user());
         return view('pages.affiliates.affiliates-dashboard');
     }
 }

@@ -167,7 +167,7 @@ $(function () {
 
 
 $(document).ready(function($){
-  $('#select-state').change(function () {
+  $('#select-state-stu-student').change(function () {
     let selectOption = $(this).val();
     if(selectOption  >= 1){
       // alert(selectOption);jQuery
@@ -179,7 +179,7 @@ $(document).ready(function($){
       });
       $.ajax({
         type:'post',
-        url:"getCityNameList",
+        url:"getCityNameListStudent",
         data:{ssId:selectOption},
         success:function(data){
           let result = JSON.parse(data);
@@ -198,6 +198,41 @@ $(document).ready(function($){
       alert('Please select state name')
     }
   })
+  // select course name according to course type
+
+  $('#student-course-type').change(function () {
+    let selectOption = $(this).val();
+    if(selectOption  >= 1){
+      $("#select-course").val();
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({
+        type:'post',
+        url:"getCourseListName",
+        data:{ssId:selectOption},
+        success:function(data){
+          let result = JSON.parse(data);
+          console.log(result,'4567890987654')
+          if(result.info == 1){
+            result.resp.forEach(ele => {
+              $("#select-course").append("<option value='"+ele.id+"'>"+ele.course_name+"</option>");
+            });
+          }
+          else{
+            alert(result.message)
+          }
+        }
+     })
+    }
+    else{
+      alert('Please select state name')
+    }
+  })
+
+
   $('.affiliate-confirm-text').on('click', function () {
     // alert('tyuioijhg')
     let rowId = $(this).data('id');
@@ -312,4 +347,70 @@ $(document).ready(function($){
       }
     })
   });
-})
+
+  //block transaction
+
+  $('.affiliate-blockTransaction').on('click', function () {
+    // alert('tyuioijhg')
+    let rowId = $(this).data('id');
+    let centerId = $(this).data('name');
+    let typeName = $(this).data('type');
+    Swal.fire({
+      title: 'Are you sure?',
+      text: `Are you sure want to block transction of this ${centerId}!`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Confirm',
+      confirmButtonClass: 'btn btn-primary',
+      cancelButtonClass: 'btn btn-danger ml-1',
+      buttonsStyling: false,
+      preConfirm: function (login) {
+          $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+          });
+          $.ajax({
+            type:'post',
+            url:"blockTransactionId",
+            data:{ccId:rowId,type:typeName},
+            success:function(data){
+              let result = JSON.parse(data);
+              if(result.info == 1){
+                setTimeout(() => {
+                  window.location.reload();
+                }, 3000);
+                Swal.fire(
+                  {
+                    icon: "success",
+                    title: `${typeName}`,
+                    text: result.message,
+                    confirmButtonClass: 'btn btn-success',
+                  }
+                )
+              }
+              else{
+                Swal.fire(
+                  {
+                    icon: "errorz",
+                    title: 'Error!',
+                    text: result.message,
+                    confirmButtonClass: 'btn btn-success',
+                  }
+                )
+              }
+            }
+          })
+      },
+      allowOutsideClick: function () {
+        !Swal.isLoading()
+      }
+    })
+  });
+
+});
+
+
+
