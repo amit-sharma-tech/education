@@ -50,6 +50,7 @@ class AdminDashboardController extends Controller
                 "address" => $value->address,
                 "register_dt" => $value->register_dt,
                 "is_active" => $value->is_active,
+                "block_transaction" => $value->block_transaction,
             ];
             $counter ++;
         }
@@ -78,7 +79,7 @@ class AdminDashboardController extends Controller
             }
         }
         else{
-            return json_encode(['info' => 0, "message" => "Invalid State Id","resp" => ""]);
+            return json_encode(['info' => 0, "message" => "Invalid delete CC Id","resp" => ""]);
         }
     }
 
@@ -106,7 +107,35 @@ class AdminDashboardController extends Controller
             }
         }
         else{
-            return json_encode(['info' => 0, "message" => "Invalid State Id","resp" => ""]);
+            return json_encode(['info' => 0, "message" => "Invalid inactive CC Id","resp" => ""]);
+        }
+    }
+
+
+    public function blockTransactionIdAction(Request $request){
+        $req = $request->validate([
+            'ccId' => 'required',
+            'type' => 'required|string'
+        ]);
+        // dd(Str::length($req['ssId']));
+        if($req['ccId'] != 0){
+            $CourseRes = \App\Models\User::where(['id'=>$req['ccId'],'user_type' => 2])->get();
+            if($CourseRes[0]->block_transaction != $req['type']){
+            // if($CourseRes){
+                $resp = User::where(['id' =>$req['ccId'],'user_type' => 2])->update(['block_transaction' => $req['type']]);
+                if($resp){
+                    return json_encode(['info' => 1, "resp" => "", "message" => "Transaction Successfully updated"]);
+                }
+                else{
+                    return json_encode(['info' => 0, "resp" => "","message" =>"Error while update transaction records"]);
+                }
+            }
+            else{
+                return json_encode(['info' => 0, "resp" => "","message" =>"No records found"]);
+            }
+        }
+        else{
+            return json_encode(['info' => 0, "message" => "Invalid block CC id","resp" => ""]);
         }
     }
 
@@ -221,5 +250,7 @@ class AdminDashboardController extends Controller
             return redirect()->back()->with('error','Please select Director image');
         }
     }
+
+    
 }
 

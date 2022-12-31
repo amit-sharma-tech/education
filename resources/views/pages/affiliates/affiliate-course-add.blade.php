@@ -36,7 +36,7 @@
           @endempty
         </div>
         <div class="card-body">
-          <form id="jquery-val-form" action="{{url('admin/course/submitAddCourse')}}" method="POST">
+          <form id="jquery-val-form" action="{{url('affiliate/course/submitAddCourse')}}" method="POST">
             @csrf
             <input type="hidden" name="hiddenId" value="@isset($courseName){{trim($courseName[0]->id)}}@endisset">
             <div class="form-group">
@@ -78,25 +78,36 @@
                 value="@isset($courseName){{trim($courseName[0]->course_duration)}}@endisset"
               />
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
               <label class="form-label" for="confirm-type">Course Type</label>
               <fieldset class="form-group">
                 <select class="form-control" id="basicSelect" name="course_type">
                   <option>Select Course Name</option>
-            @if (isset($courseName))
                   @foreach ($courseType as $list)
-                        {{-- <option value = "{{$list->id}}">{{$list->course_name}}</option> --}}
-                    <option value="{{ $list->id }}" {{ ($courseName[0]->course_type == $list->id ? "selected":"") }}>{{ $list->course_name }}</option>
-
+                    <option value = {{$list->id}}>{{$list->course_name}}</option>
                   @endforeach
-            @else
-                  @foreach ($courseType as $list)
-                        <option value = "{{$list->id}}">{{$list->course_name}}</option>
-                  @endforeach
-            @endif  
                 </select>
-              </fieldset>              
-            </div>
+              </fieldset>
+            </div> --}}
+            <div class="form-group">
+                <label class="form-label" for="confirm-type">Course Type</label>
+                <fieldset class="form-group">
+                  <select class="form-control" id="basicSelect" name="course_type">
+                    <option>Select Course Name</option>
+              @if (isset($courseName))
+                    @foreach ($courseType as $list)
+                          {{-- <option value = "{{$list->id}}">{{$list->course_name}}</option> --}}
+                      <option value="{{ $list->id }}" {{ ($courseName[0]->course_type == $list->id ? "selected":"") }}>{{ $list->course_name }}</option>
+  
+                    @endforeach
+              @else
+                    @foreach ($courseType as $list)
+                          <option value = "{{$list->id}}">{{$list->course_name}}</option>
+                    @endforeach
+              @endif  
+                  </select>
+                </fieldset>              
+              </div>
             <div class="form-group">
                 <label class="form-label" for="confirm-subject">NO. Of Subject </label>
                 <input

@@ -71,29 +71,53 @@ Route::group(['prefix' => 'dashboard','middleware' => 'prevent-back-history'], f
 // form elements
 
 Route::group(['prefix' => 'affiliate'], function () {
-    Route::get('profile', [MyProfileController::class, 'affiliateProfile'])->name('affiliate-profile');
-    Route::get('editprofile', [MyProfileController::class, 'affiliateEditProfile'])->name('affiliate-Edit-profile');
-    Route::post('getCityName', [MyProfileController::class, 'getCityByStateName'])->name('getCityName');
-    Route::put('submitProfile/{id}', [MyProfileController::class, 'submitAffiliateProfile'])->name('submit-affiliate-profile');
+    Route::get('profile', [MyProfileController::class, 'affiliateProfile'])->name('affiliate-profile')->middleware('is_affiliate');
+    Route::get('editprofile', [MyProfileController::class, 'affiliateEditProfile'])->name('affiliate-Edit-profile')->middleware('is_affiliate');
+    Route::post('getCityName', [MyProfileController::class, 'getCityByStateName'])->name('getCityName')->middleware('is_affiliate');
+    Route::put('submitProfile/{id}', [MyProfileController::class, 'submitAffiliateProfile'])->name('submit-affiliate-profile')->middleware('is_affiliate');
+    Route::post('course/submitAddCourse', [MyProfileController::class, 'coursesubmitAddCourse'])->name('aff-course-add-submit')->middleware('is_affiliate');
+    Route::get('course/addCourse', [MyProfileController::class, 'courseAddApplication'])->name('affiliate-univ-course-add')->middleware('is_affiliate');
+    Route::get('course/list', [MyProfileController::class, 'courseListApplication'])->name('affiliate-univ-course-list')->middleware('is_affiliate');
+    Route::post('course/deleteCourseFromList', [MyProfileController::class, 'deleteCourseFromListPost'])->name('aff-delete-course-from-list')->middleware('is_affiliate');
+    Route::get('course/affiliateeditcourse/{id}', [MyProfileController::class, 'affiliatEditCourse'])->name('affiliate-univ-course-add')->middleware('is_affiliate');
 });
 
 
 //Admin Routes
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('course/addCourse', [CourseController::class, 'courseAddApplication'])->name('admin-univ-course-add');
-    Route::get('course/list', [CourseController::class, 'courseListApplication'])->name('admin-univ-course-list');
-    Route::post('course/submitAddCourse', [CourseController::class, 'coursesubmitAddCourse'])->name('admin-course-add-submit');
-    Route::post('course/deleteCourseFromList', [CourseController::class, 'deleteCourseFromListPost'])->name('delete-course-from-list');
-    Route::post('course/inactiveCourseFromList', [CourseController::class, 'inactiveCourseFromList'])->name('delete-course-from-list');
-    Route::get('course/admineditcourse/{id}', [CourseController::class, 'adminEditCourse'])->name('admin-edit-course');
-    Route::get('affiliate/affRegistration', [AdminDashboardController::class, 'affiliateRegistration'])->name('admin-affiliate-registration');
-    Route::get('affiliate/affiliateList', [AdminDashboardController::class, 'affiliateAllList'])->name('affiliate-list');
-    Route::post('affiliate/getCityNameList', [AdminDashboardController::class, 'getCityByStateName'])->name('getCityName');
-    Route::put('affiliate/submitAffiliateProfile', [AdminDashboardController::class, 'submitAdminAffiliateProfile'])->name('admin-affiliate-registration');
-    Route::post('affiliate/deleteAffiliateFromList', [AdminDashboardController::class, 'deleteAffiliateFromList'])->name('delete-affiliate-from-list');
-    Route::post('affiliate/inactiveAffiliateFromList', [AdminDashboardController::class, 'inactiveAffiliateFromList'])->name('delete-affiliate-from-list');
+    //course magement
+    Route::get('course/addCourse', [CourseController::class, 'courseAddApplication'])->name('admin-univ-course-add')->middleware('is_admin');
+    Route::get('course/list', [CourseController::class, 'courseListApplication'])->name('admin-univ-course-list')->middleware('is_admin');
+    Route::post('course/submitAddCourse', [CourseController::class, 'coursesubmitAddCourse'])->name('admin-course-add-submit')->middleware('is_admin');
+    Route::post('course/deleteCourseFromList', [CourseController::class, 'deleteCourseFromListPost'])->name('delete-course-from-list')->middleware('is_admin');
+    Route::post('course/inactiveCourseFromList', [CourseController::class, 'inactiveCourseFromList'])->name('delete-course-from-list')->middleware('is_admin');
+    Route::get('course/admineditcourse/{id}', [CourseController::class, 'adminEditCourse'])->name('admin-univ-course-add')->middleware('is_admin');
+    
+    //affiliate management
+    Route::get('affiliate/affRegistration', [AdminDashboardController::class, 'affiliateRegistration'])->name('admin-affiliate-registration')->middleware('is_admin');
+    Route::get('affiliate/affiliateList', [AdminDashboardController::class, 'affiliateAllList'])->name('affiliate-list')->middleware('is_admin');
 
-    Route::get('student/stRegistration', [StudentController::class, 'studentRegistation'])->name('admin-student-registration');
+    Route::post('affiliate/blockTransactionId', [AdminDashboardController::class, 'blockTransactionIdAction'])->name('block-trans-action-id')->middleware('is_admin');
+
+    Route::post('affiliate/getCityNameList', [AdminDashboardController::class, 'getCityByStateName'])->name('getCityName')->middleware('is_admin');
+    Route::put('affiliate/submitAffiliateProfile', [AdminDashboardController::class, 'submitAdminAffiliateProfile'])->name('admin-affiliate-registration')->middleware('is_admin');
+    Route::post('affiliate/deleteAffiliateFromList', [AdminDashboardController::class, 'deleteAffiliateFromList'])->name('delete-affiliate-from-list')->middleware('is_admin');
+    Route::post('affiliate/inactiveAffiliateFromList', [AdminDashboardController::class, 'inactiveAffiliateFromList'])->name('delete-affiliate-from-list')->middleware('is_admin');
+    
+    
+    
+    //Student management
+    Route::get('student/stRegistration', [StudentController::class, 'studentRegistation'])->name('admin-student-registration')->middleware('is_admin');
+    Route::post('student/submitstRegistration', [StudentController::class, 'submitstRegistrationbtn'])->name('admin-student-registration')->middleware('is_admin');
+    Route::post('student/submitstEditRegistration', [StudentController::class, 'submitstEditRegistration'])->middleware('is_admin');
+    Route::get('student/stList', [StudentController::class, 'stListOfStudent'])->name('admin-student-list')->middleware('is_admin');
+    Route::post('student/getCityNameListStudent', [StudentController::class, 'getCityNameListStudent'])->name('getCityNameListStudent')->middleware('is_admin');
+    Route::post('student/getCourseListName', [StudentController::class, 'getCourseListNameList'])->name('getCourseName')->middleware('is_admin');
+    Route::get('student/adminStudentEdit/{id}', [StudentController::class, 'adminStudentEditSub'])->name('admin-student-registration')->middleware('is_admin');
+    //Student university
+
+    Route::get('university/unStRegistration', [StudentController::class, 'unStRegistration'])->name('admin-university-registration')->middleware('is_admin');
+    Route::get('university/unStList', [StudentController::class, 'unStListOfStudent'])->name('admin-university-list')->middleware('is_admin');
 
     Route::get('email', [ApplicationController::class, 'emailApplication'])->name('app-email');
     Route::get('chat', [ApplicationController::class, 'chatApplication'])->name('app-chat');

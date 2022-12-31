@@ -15,6 +15,19 @@
   // Basic date
   $('.pickadate').pickadate();
 
+  const date = new Date();
+  const curyear = date.getFullYear() - 3;
+  // 👇️ getMonth returns integer from 0(January) to 11(December)
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  console.log(curyear,'year',month,'month',day);
+  $('.datapickdob').pickadate({
+    min: new Date(1970,3,20),
+    max : new Date(curyear,month,day),
+    selectYears: true,
+    selectMonths: true
+  });
+
   // Format Date Picker
   $('.format-picker').pickadate({
       format: 'mmmm, d, yyyy'

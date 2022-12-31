@@ -18,11 +18,12 @@ class IsAffiliate
     public function handle(Request $request, Closure $next)
     {
         // return $next($request);
-        if(auth()->user()->user_type == 2){
+        // dd($request);
+        if(auth()->user()->user_type == 2 && session('user_type') == 2) {
             return $next($request);
         }
         else{
-            return redirect('affiliates-login')->with('error',"You don't have affiliate access.");
+            return redirect('auth/affiliates-login')->with('error',"You don't have affiliate access.");
         }
     }
 }

@@ -46,9 +46,9 @@
     },
     {
       "url": "#",
-      "name": "University Course",
+      "name": "Course Management",
       "slug": "Courses",
-      "icon": "notebook",
+      "icon": "pie-chart",
       "submenu": [
         {
           "url": "admin/course/addCourse",
@@ -61,7 +61,15 @@
             "name": "Course List",
             "slug": "admin-univ-course-list",
             "icon": "bx bx-right-arrow-alt"
-        },
+        }
+      ]
+    },
+    {
+      "url": "#",
+      "name": "University Course",
+      "slug": "Courses",
+      "icon": "notebook",
+      "submenu": [
         {
           "url": "admin/university/unStRegistration",
           "name": "Student Registration",
@@ -72,19 +80,6 @@
           "url": "admin/university/unStList",
           "name": "Student List",
           "slug": "admin-university-list",
-          "icon": "bx bx-right-arrow-alt"
-        },
-        {
-          "url": "admin/university/payFee",
-          "name": "Pay Fee",
-          "slug": "admin-university-fee",
-          "icon": "bx bx-right-arrow-alt"
-        },
-        {
-
-          "url": "admin/university/feeTransaction",
-          "name": "Student Fee Transaction",
-          "slug": "admin-university-transaction",
           "icon": "bx bx-right-arrow-alt"
         }
       ]
@@ -105,6 +100,18 @@
           "url": "admin/student/stList",
           "name": "Student List",
           "slug": "admin-student-list",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "admin/student/payFee",
+          "name": "Pay Fee",
+          "slug": "admin-student-fee",
+          "icon": "bx bx-right-arrow-alt"
+        },
+        {
+          "url": "admin/student/feeTransaction",
+          "name": "Student Fee Transaction",
+          "slug": "admin-student-transaction",
           "icon": "bx bx-right-arrow-alt"
         }
       ]
