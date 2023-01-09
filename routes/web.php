@@ -103,8 +103,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::put('affiliate/submitAffiliateProfile', [AdminDashboardController::class, 'submitAdminAffiliateProfile'])->name('admin-affiliate-registration')->middleware('is_admin');
     Route::post('affiliate/deleteAffiliateFromList', [AdminDashboardController::class, 'deleteAffiliateFromList'])->name('delete-affiliate-from-list')->middleware('is_admin');
     Route::post('affiliate/inactiveAffiliateFromList', [AdminDashboardController::class, 'inactiveAffiliateFromList'])->name('delete-affiliate-from-list')->middleware('is_admin');
-    
-    
+    Route::get('affiliate/affiliateview/{id}', [AdminDashboardController::class, 'AffiliateProfileView'])->name('affiliate-list')->middleware('is_admin');
+    Route::get('affiliate/adminAffiliateEdit/{id}', [AdminDashboardController::class, 'adminAffiliateEditBtn'])->name('admin-affiliate-registration')->middleware('is_admin');
     
     //Student management
     Route::get('student/stRegistration', [StudentController::class, 'studentRegistation'])->name('admin-student-registration')->middleware('is_admin');
@@ -254,12 +254,14 @@ Route::group(['prefix' => 'page'], function () {
     Route::get('account-settings', [PageController::class, 'accountSettingPage'])->name('page-account-settings');
 });
 
+
 // Authentication  Route
 Route::group(['prefix' => 'auth'], function () {
     Route::get('student-login', [AuthenticationController::class, 'studentLogin'])->name('student-login');
     Route::get('affiliates-login', [AuthenticationController::class, 'affiliatesLogin'])->name('affiliates-login');
     Route::get('admin-login', [AuthenticationController::class, 'adminLogin'])->name('admin-login');
     Route::post('login-verfication', [AuthenticationController::class, 'loginVerfication'])->name('login-verfication');
+    Route::post('aff-login-verfication', [AuthenticationController::class, 'AffloginVerfication'])->name('login-verfication');
     Route::get('affiliate_register', [AuthenticationController::class, 'affiliatesRegister'])->name('affiliates-register');
 
     Route::post('signup-verfication', [AuthenticationController::class, 'signupVerfication'])->name('signup-verfication');

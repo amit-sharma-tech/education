@@ -157,4 +157,27 @@ class Helper
             }
         }
     }
+
+    public static function IDGenerator($model, $trow, $length=4, $prefix){
+      $data = $model::orderBy('id','desc')->first();
+      $on_length = "";
+      if(!$data){
+        $log_length = $length;
+        $last_number = "";
+      }
+      else{
+        $code = (int)substr($data->$trow,strlen($prefix)+ 1);
+        $actual_last_number = (int)($code/1)*1;
+        $increment_last_number = $actual_last_number;
+        $last_number_length = strlen($increment_last_number);
+        $on_length = $length - $last_number_length;
+        $last_number = $increment_last_number;
+      }
+      $zeros= "";
+      for ($i=0; $i < $on_length; $i++) { 
+        $zeros.="0";
+      }
+
+      return $prefix."-".$zeros.$last_number;
+    }
 }

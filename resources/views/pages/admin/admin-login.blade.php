@@ -25,18 +25,20 @@
               </div>
             </div>
             <div class="card-body">
-              {{-- @if ($errors->any())
-                  <div class="alert alert-danger">
-                      <ul>
-                          @foreach ($errors->all() as $error)
-                              <li>{{ $error }}</li>
-                          @endforeach
-                      </ul>
+              @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible mb-2" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                  </button>
+                  <div class="d-flex align-items-center">
+                    <ul>
+                      @foreach ($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                      @endforeach
+                  </ul>
                   </div>
-              @endif --}}
-              {{-- @error('title')
-                  <div class="alert alert-danger">{{ $message }}</div>
-              @enderror --}}
+                </div>
+              @endif
               <form action="{{url('auth/login-verfication')}}" method="POST" id="affiliate-login-validate">
                 @csrf
                   <div class="form-group mb-50">
@@ -65,8 +67,8 @@
                       class="form-group d-flex flex-md-row flex-column justify-content-between align-items-center">
                       <div class="text-left">
                           <div class="checkbox checkbox-sm">
-                            <a href="{{asset('auth/affiliate_register')}}"
-                              class="card-link"><small>Affiliate Registation</small></a>
+                            {{-- <a href="{{asset('auth/affiliate_register')}}"
+                              class="card-link"><small>Affiliate Registation</small></a> --}}
                               {{-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> --}}
                           </div>
                       </div>

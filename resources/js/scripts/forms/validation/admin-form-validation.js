@@ -105,7 +105,7 @@ $(function () {
         },
         'password': {
           required: true,
-        },
+        }
       }
     });
   }
@@ -156,9 +156,15 @@ $(function () {
         'select-city' :{
           required:true
         },
-        customFile: {
+        'customFile': {
           required: true
         },
+        'aff-locality' : {
+          required:true
+        },
+        'register_date' : {
+          required:true
+        }
       }
     });
   }
@@ -171,7 +177,6 @@ $(document).ready(function($){
     let selectOption = $(this).val();
     if(selectOption  >= 1){
       // alert(selectOption);jQuery
-      $("#select-city").val();
       $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -184,9 +189,15 @@ $(document).ready(function($){
         success:function(data){
           let result = JSON.parse(data);
           if(result.info == 1){
-            result.resp.forEach(ele => {
+            $("#select-city").html('');
+            /* result.resp.forEach(ele => {
               $("#select-city").append("<option value='"+ele.id+"'>"+ele.name+"</option>");
-            });
+            }); */
+            var options = '';   
+            result.resp.forEach(ele => {
+                options += '<option value="' + ele.id + '">' + ele.name + '</option>';  
+            })  
+            $('#select-city').append(options);
           }
           else{
             alert(result.message)
@@ -198,12 +209,12 @@ $(document).ready(function($){
       alert('Please select state name')
     }
   })
+  
   // select course name according to course type
 
   $('#student-course-type').change(function () {
     let selectOption = $(this).val();
     if(selectOption  >= 1){
-      $("#select-course").val();
       $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -214,12 +225,17 @@ $(document).ready(function($){
         url:"getCourseListName",
         data:{ssId:selectOption},
         success:function(data){
+          $("#select-course").html('');
           let result = JSON.parse(data);
-          console.log(result,'4567890987654')
           if(result.info == 1){
-            result.resp.forEach(ele => {
+            /* result.resp.forEach(ele => {
               $("#select-course").append("<option value='"+ele.id+"'>"+ele.course_name+"</option>");
-            });
+            }); */
+            var options = '';   
+            result.resp.forEach(ele => {
+                options += '<option value="' + ele.id + '">' + ele.name + '</option>';  
+            })  
+            $('#select-course').append(options);
           }
           else{
             alert(result.message)
@@ -232,6 +248,41 @@ $(document).ready(function($){
     }
   })
 
+
+  // affilicate state city
+
+  $('#select-state-affilicate').change(function () {
+    let selectOption = $(this).val();
+    if(selectOption  >= 1){
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      $.ajax({
+        type:'post',
+        url:"getCityNameList",
+        data:{ssId:selectOption},
+        success:function(data){
+          $("#select-city-affilicate").html('');
+          let result = JSON.parse(data);
+          if(result.info == 1){
+            var options = '';   
+            result.resp.forEach(ele => {
+                options += '<option value="' + ele.id + '">' + ele.name + '</option>';  
+            })  
+            $('#select-city-affilicate').append(options); 
+          }
+          else{
+            alert(result.message)
+          }
+        }
+     })
+    }
+    else{
+      alert('Please select state name')
+    }
+  })
 
   $('.affiliate-confirm-text').on('click', function () {
     // alert('tyuioijhg')

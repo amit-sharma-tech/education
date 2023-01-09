@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use DB;
+use Carbon\Carbon;
+use App\Helpers\Helper;
+use File;
+use Storage;
+
 
 class StudentController extends Controller
 {
@@ -68,32 +73,35 @@ class StudentController extends Controller
             "mobile" => "required",
             "email-id" => "required|email",
             "bsradio" => "required",
+            "datapickdob" => "required",
             "password" => "required",
             "father_name" => "required",
             "p_mobile" => "required",
             "Address" => "required",
             "select-state" => "required",
             "select-city" => "required",
-            "pincode" => "required",
+            "pincode" => "required|numeric",
             "school_name" => "required",
+            "batch_start" => "required",
             "qualification" => "required",
             "select-course-type" => "required",
-            "select-course" => "required",
-            "datapickdob" => "required"
+            "select-course" => "required"
         ];
 
         $validator = Validator::make($request->all(),$rules);
 		if ($validator->fails()) {
-			return redirect('admin/student/stRegistration')
+			/* return redirect('admin/student/stRegistration')
 			->withInput()
-			->with('failed',$validator);
+			->with('failed',$validator); */
+            return redirect('admin/student/stRegistration')->withErrors($validator);
 		}
 		else{
             $data = $request->input();
+            // dd($data);
             try {
                 $studentAdd = [];
                 if($data['select-course'] == 0){
-                    return redirect('admin/student/stRegistration')->with('status'," Please select course name");
+                    return redirect('admin/student/stRegistration')->with('error'," Please select course name");
                 }
                 if(!empty($data['hiddenId'])){
                     if (!empty($request->files) && $request->hasFile('image_name')) {
@@ -107,28 +115,30 @@ class StudentController extends Controller
                         $filePath = $request->file('image_name')->storeAs('student', $fileName, 'public');
                         $studentAdd['image'] = $orgFilename;
                     }
+                    
                     $studentAdd['first_name'] = $data["full_name"];
                     $studentAdd['s_mobile'] = $data["mobile"];
+                    $studentAdd['email'] = $data["email-id"];
                     $studentAdd['gender'] = $data["bsradio"];
                     $studentAdd['father_name'] = $data["father_name"];
                     $studentAdd['f_mobile'] = $data["p_mobile"];
-                    $studentAdd['Address'] = $data["Address"];
+                    $studentAdd['address'] = $data["Address"];
                     $studentAdd['state'] = $data["select-state"];
                     $studentAdd['city'] = $data["select-city"];
                     $studentAdd['pincode'] = $data["pincode"];
-                    $studentAdd['college_name'] = $data["school_name"];
                     $studentAdd['qualification'] = $data["qualification"];
+                    $studentAdd['collage_name'] = $data["school_name"];
                     $studentAdd['course_type'] = $data["select-course-type"];
                     $studentAdd['course_name'] = $data["select-course"];
-                    $studentAdd['student_type'] = 1;
+                    $studentAdd['dob'] = date('Y-m-d',strtotime(str_replace(',',' ',$data['datapickdob'])));
+                    $studentAdd['batch_start'] = date('Y-m-d',strtotime(str_replace(',',' ',$data['batch_start'])));
                     $studentAdd['updated_at'] = date('Y-m-d H:i:s');
-                    $studentAdd['dob'] = $data['datapickdob'];
 
                     $resp = Student::where('id',$data['hiddenId'])->update($studentAdd);
-                    return redirect('admin/student/stRegistration')->with('status'," Student updated successfully");
+                    return redirect('admin/student/stRegistration')->with('success'," Student updated successfully");
                 }
                 else{
-                    // $studentAdd = [];//new Student;
+                    //$studentAdd = [];//new Student;
                     if (!empty($request->files) && $request->hasFile('image_name')) {
                         $removeSpace = preg_replace( "/[^a-z0-9\._]+/", "-", strtolower($request->file('image_name')->getClientOriginalName()));
                         $orgFilename = time().'_'.$removeSpace;
@@ -136,6 +146,8 @@ class StudentController extends Controller
                         $filePath = $request->file('image_name')->storeAs('student', $fileName, 'public');
                         $studentAdd['image'] = $orgFilename;
                     }
+                    $digits = 5;
+                    $randomNumber =  rand(pow(10, $digits-1), pow(10, $digits)-1);
                     $studentAdd['first_name'] = $data["full_name"];
                     $studentAdd['username'] = $data["email-id"];
                     $studentAdd['s_mobile'] = $data["mobile"];
@@ -144,7 +156,7 @@ class StudentController extends Controller
                     $studentAdd['password'] = Hash::make($data["password"]);
                     $studentAdd['father_name'] = $data["father_name"];
                     $studentAdd['f_mobile'] = $data["p_mobile"];
-                    $studentAdd['Address'] = $data["Address"];
+                    $studentAdd['address'] = $data["Address"];
                     $studentAdd['state'] = $data["select-state"];
                     $studentAdd['city'] = $data["select-city"];
                     $studentAdd['pincode'] = $data["pincode"];
@@ -155,12 +167,18 @@ class StudentController extends Controller
                     $studentAdd['student_type'] = 1;
                     $studentAdd['is_active'] = 'ACTIVE';
                     $studentAdd['created_at'] = date('Y-m-d H:i:s');
-                    $studentAdd['dob'] = $data['datapickdob'];
+                    $studentAdd['dob'] = date('Y-m-d',strtotime(str_replace(',',' ',$data['datapickdob'])));//\Carbon\Carbon::parse($data['datapickdob'])->format('Y-m-d'); 
+                    $studentAdd['batch_start'] = date('Y-m-d',strtotime(str_replace(',',' ',$data['batch_start'])));
+                    $register_id= "STD".date('y').date('mdhs').$randomNumber;
+                    $studentAdd['register_id'] = $register_id;
+                    // DB::enableQueryLog();
                     $resp = Student::create($studentAdd);
-                    return redirect('admin/student/stRegistration')->with('status'," Student insert successfully");
+                    // $query = DB::getQueryLog();
+                    return redirect('admin/student/stRegistration')->with('success'," Student insert successfully");
                 }
             } catch (\Throwable $th) {
-                return redirect('admin/student/stRegistration')->with('failed',"operation failed " + $th);
+                // dd($th);
+                return redirect('admin/student/stRegistration')->with('error',"operation failed " + $th);
             }
         }
         
@@ -169,14 +187,14 @@ class StudentController extends Controller
     public function submitstEditRegistration(Request $request){
         $data = $request->input();
         try {
+            // dd(public_path('student'));
             $studentAdd = [];
             if(!empty($data['hiddenId'])){
                 $studentRecords = Student::find($data['hiddenId']);
                 if (!empty($request->files) && $request->hasFile('image_name')) {
                     if($studentRecords->image != null){
-                        if(File::exists(public_path('uploads/student/'.$studentRecords->image))){
-                            dd('121');
-                            Storage::delete('student/'.$studentRecords->image);
+                        if(storage::files('public/student/')){
+                            Storage::delete('public/student/'.$studentRecords->image);
                         }
                     }
                     $removeSpace = preg_replace( "/[^a-z0-9\._]+/", "-", strtolower($request->file('image_name')->getClientOriginalName()));
@@ -201,11 +219,12 @@ class StudentController extends Controller
                 $studentAdd['updated_at'] = date('Y-m-d H:i:s');
                 // $studentAdd['dob'] = $data['datapickdob'];              
                 $resp = Student::where('id',$data['hiddenId'])->update($studentAdd);
-                return redirect('admin/student/stRegistration')->with('status'," Student updated successfully");
+                return redirect('admin/student/stRegistration')->with('success'," Student updated successfully");
             }
         }
         catch(\Throwable $th){
-            return redirect('admin/student/stRegistration')->with('failed',"operation failed " + $th);
+            // dd($th);
+            return redirect('admin/student/stRegistration')->with('error',"operation failed " + $th);
         }
     }
 
@@ -213,6 +232,13 @@ class StudentController extends Controller
 
         if($id && is_numeric($id)){
             $studentRes = \App\Models\Student::where(['id'=>$id])->get();
+            // dd($studentRes[0]['batch_start']);
+            /* dd([
+                $studentRes[0]['batch_start'],
+                $timestamp = strtotime($studentRes[0]['batch_start']),
+                date('Y m d'),strtotime($timestamp),
+                \Carbon\Carbon::parse($studentRes[0]['batch_start'])->format('d F, Y')
+            ]); */
             $CourseCount = $studentRes->count();
             $resp =[];
             if($CourseCount){
@@ -232,7 +258,7 @@ class StudentController extends Controller
                     "created_at" =>$studentRes[0]['created_at'],
                     "updated_at" =>$studentRes[0]['updated_at'],
                     "gender" =>$studentRes[0]['gender'],
-                    "dob" =>date('d F , Y'),strtotime($studentRes[0]['dob']),
+                    "dob" =>\Carbon\Carbon::parse($studentRes[0]['dob'])->format('d F, Y'),
                     "father_name" =>$studentRes[0]['father_name'],
                     "mother_name" =>$studentRes[0]['mother_name'],
                     "address" =>$studentRes[0]['address'],
@@ -244,7 +270,7 @@ class StudentController extends Controller
                     "qualification" =>$studentRes[0]['qualification'],
                     "course_type" =>$studentRes[0]['course_type'],
                     "course_name" =>$studentRes[0]['course_name'],
-                    "batch_start" =>date('d F , Y'),strtotime($studentRes[0]['batch_start']),
+                    "batch_start" =>\Carbon\Carbon::parse($studentRes[0]['batch_start'])->format('d F, Y'),
                     "image" =>$studentRes[0]['image'],
                     "student_type" =>$studentRes[0]['student_type'],
                     "category" =>$studentRes[0]['category'],
@@ -254,10 +280,10 @@ class StudentController extends Controller
                 return view('pages.admin.admin-student-registration',['studentEdit' => $resp,'State' => $statesRecords,'coursetype' => $coursetype,'coursesList' => $coursesList,'citiesList' => $citiesList]);
             }
             else{
-                return redirect('admin/student/stList')->with('failed',"Student are not avaliable");    
+                return redirect('admin/student/stList')->with('error',"Student are not avaliable");    
             }
         }else{
-            return redirect('admin/student/stList')->with('failed',"Parameter is not correct");
+            return redirect('admin/student/stList')->with('error',"Parameter is not correct");
         }
     }
 

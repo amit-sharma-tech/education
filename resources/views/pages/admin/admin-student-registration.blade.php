@@ -24,22 +24,31 @@
       <div class="card">
         <div class="card-header">
             @if (@$studentEdit)
-              <h4 class="card-title">Edit Student Registation Form</h4>  
+              <h4 class="card-title">Edit Student Registration Form</h4>  
             @else
-              <h4 class="card-title">Student Registation Form</h4>
+              <h4 class="card-title">Student Registration Form</h4>
             @endif
         </div>
-        @if (session('status'))
+        @if (session('success'))
           <div class="alert alert-success" role="alert">
             <button type="button" class="close" data-dismiss="alert">×</button>
             {{ session('status') }}
           </div>
-        @elseif(session('failed'))
+        @elseif(session('error'))
           <div class="alert alert-danger" role="alert">
             <button type="button" class="close" data-dismiss="alert">×</button>
             {{ session('failed') }}
           </div>
         @endif
+        @if ($errors->any())
+          <div class="alert alert-danger" role="alert">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      @endif
         <div class="card-body">
           @if (@$studentEdit)
             <form class="form form-horizontal"id="affliate-myprofile-validate" action="{{url('admin/student/submitstEditRegistration')}}" method="POST" enctype=multipart/form-data>
@@ -56,7 +65,7 @@
                             <label>Student Name</label>
                             </div>
                             <div class="col-md-8 form-group">
-                                <input type="text" id="student-name" class="form-control" name="full_name" placeholder="Student full Name" value="@isset($studentEdit){{trim($studentEdit['first_name'])}}@endisset" required>
+                                <input type="text" id="student-name" class="form-control" name="full_name" placeholder="Student full Name" value="@isset($studentEdit){{trim($studentEdit['first_name'])}}@endisset" required autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
@@ -64,7 +73,7 @@
                               <label>Mobile</label>
                             </div>
                             <div class="col-md-8 form-group">
-                            <input name="mobile"  id="mobile" class="form-control" type="text" onkeyup="checkMobileValidate(); return false;" placeholder="Enter Mobile" value="@isset($studentEdit){{trim($studentEdit['s_mobile'])}}@endisset"><span id="message"></span>
+                            <input name="mobile"  id="mobile" class="form-control" type="text" onkeyup="checkMobileValidate(); return false;" placeholder="Enter Mobile" value="@isset($studentEdit){{trim($studentEdit['s_mobile'])}}@endisset" autocomplete="off"><span id="message"></span>
                             </div>
                         </div>
                         <div class="row">
@@ -72,7 +81,7 @@
                                 <label>Email</label>
                             </div>
                             <div class="col-md-8 form-group">
-                                <input type="email" id="email-id" class="form-control" name="email-id" placeholder="Email" required value="@isset($studentEdit){{trim($studentEdit['email'])}}@endisset">
+                                <input type="email" id="email-id" class="form-control" name="email-id" placeholder="Email" required value="@isset($studentEdit){{trim($studentEdit['email'])}}@endisset" autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
@@ -100,7 +109,7 @@
                           </div>
                           <div class="col-md-8 form-group">
                             <fieldset class="form-group position-relative has-icon-left">
-                              <input type="text" class="form-control datapickdob" placeholder="Select Date" required value="@isset($studentEdit){{trim($studentEdit['dob'])}}@endisset">
+                              <input type="text" class="form-control datapickdob" name= "datapickdob" placeholder="Select Date" required value="@isset($studentEdit){{trim($studentEdit['dob'])}}@endisset" autocomplete="off">
                               <div class="form-control-position">
                                 <i class='bx bx-calendar'></i>
                               </div>
@@ -112,7 +121,7 @@
                             <label>Password</label>
                             </div>
                             <div class="col-md-8 form-group">
-                            <input type="password" id="password" class="form-control" name="password" placeholder="Password" required value="@isset($studentEdit){{trim($studentEdit['password'])}}@endisset" @isset($studentEdit)readonly  @endisset >
+                            <input type="password" id="password" class="form-control" name="password" placeholder="Password" required value="@isset($studentEdit){{trim($studentEdit['password'])}}@endisset" @isset($studentEdit)readonly  @endisset  autocomplete="off">
                             </div>
                         </div>
                         <div class="row">
@@ -120,7 +129,7 @@
                           <label>Father / Husband Name</label>
                           </div>
                           <div class="col-md-8 form-group">
-                          <input type="text" id="fatehr_name" class="form-control" name="father_name" placeholder="Father / Husband Name" required value="@isset($studentEdit){{trim($studentEdit['father_name'])}}@endisset">
+                          <input type="text" id="fatehr_name" class="form-control" name="father_name" placeholder="Father / Husband Name" required value="@isset($studentEdit){{trim($studentEdit['father_name'])}}@endisset" autocomplete="off">
                           </div>
                         </div>
                         <div class="row">
@@ -129,7 +138,7 @@
                           </div>
                           <div class="col-md-8 form-group">
                           {{-- <input type="text" id="contact-info" class="form-control" name="p_mobile" placeholder="Parent Mobile" required> --}}
-                          <input name="p_mobile"  id="mobile2" class="form-control" type="text" onkeyup="checkMobileValidate2(); return false;" placeholder="Enter Parent mobile" value="@isset($studentEdit){{trim($studentEdit['f_mobile'])}}@endisset"><span id="message2"></span>
+                          <input name="p_mobile"  id="mobile2" class="form-control" type="text" onkeyup="checkMobileValidate2(); return false;" placeholder="Enter Parent mobile" value="@isset($studentEdit){{trim($studentEdit['f_mobile'])}}@endisset" autocomplete="off"><span id="message2"></span>
                           </div>
                         </div>
                         <div class="row">
@@ -137,7 +146,7 @@
                             <label>Address</label>
                           </div>
                           <div class="col-md-8 form-group">
-                            <textarea class="form-control" id="Address" name="Address" rows="3" required placeholder="Address">@isset($studentEdit){{trim($studentEdit['address'])}}@endisset</textarea>
+                            <textarea class="form-control" id="Address" name="Address" rows="3" required placeholder="Address" autocomplete="off">@isset($studentEdit){{trim($studentEdit['address'])}}@endisset</textarea>
                           </div>
                         </div>
                         <div class="row">
@@ -193,7 +202,7 @@
                             <label>Pincode</label>
                           </div>
                           <div class="col-md-8 form-group">
-                          <input type="text" id="contact-info" class="form-control" name="pincode" placeholder="Pincode" required minlength="6" maxlength="6" value="@isset($studentEdit){{trim($studentEdit['pincode'])}}@endisset">
+                          <input type="text" id="contact-info" class="form-control" name="pincode" placeholder="Pincode" required minlength="6" maxlength="6" onkeypress="return isNumber(event)" value="@isset($studentEdit){{trim($studentEdit['pincode'])}}@endisset" autocomplete="off">
                           </div>
                         </div>
                         <div class="row">
@@ -201,7 +210,7 @@
                             <label>School / University Name</label>
                           </div>
                           <div class="col-md-8 form-group">
-                          <input type="text" id="contact-info" class="form-control" name="school_name" placeholder="School / University Name" required value="@isset($studentEdit){{trim($studentEdit['collage_name'])}}@endisset">
+                          <input type="text" id="contact-info" class="form-control" name="school_name" placeholder="School / University Name" required value="@isset($studentEdit){{trim($studentEdit['collage_name'])}}@endisset" autocomplete="off">
                           </div>
                         </div>
         
@@ -211,7 +220,7 @@
                           </div>
                           <div class="col-md-8 form-group">
                             <fieldset class="form-group position-relative has-icon-left">
-                              <input type="text" class="form-control pickadate" placeholder="batch State Date" required value="@isset($studentEdit){{trim($studentEdit['batch_start'])}}@endisset">
+                              <input type="text" class="form-control pickadate" name="batch_start" placeholder="batch State Date" required value="@isset($studentEdit){{trim($studentEdit['batch_start'])}}@endisset" autocomplete="off">
                               <div class="form-control-position">
                                 <i class='bx bx-calendar'></i>
                               </div>
@@ -310,7 +319,8 @@
                     <div class="col-md-4">
                         <div class="col-md-8 form-group">
                             <div class="imagepics" style="margin-bottom: 20px">
-                                <img src="http://localhost:8000/images/portrait/small/avatar-s-16.jpg" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
+                              {{-- <?php echo asset("storage/public/avatar-img.png");?> --}}
+                                <img src="{{ storage_path('app/public/avatar-img.png') }}" class="user-profile-image rounded" alt="user profile image" height="140" width="140">
                             </div>
                             <div class="custom-file"><br>
                             <input type="file" name="image_name" class="custom-file-input" id="inputGroupFile01">
@@ -345,6 +355,14 @@
       toastr.success('{{ Session::get('success') }}');
     @endif
   });
+  function isNumber(evt)
+  {
+     var charCode = (evt.which) ? evt.which : event.keyCode
+     if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+
+     return true;
+  }
   function checkMobileValidate()
   {
     var mobile = document.getElementById('mobile');
