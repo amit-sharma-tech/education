@@ -13,15 +13,19 @@
     <div class="col-12 col-sm-7">
       <div class="media mb-2">
         <a class="mr-1" href="javascript:void(0);">
-          <img src="{{asset('images/portrait/small/avatar-s-26.jpg')}}" alt="users view avatar"
-            class="users-avatar-shadow rounded-circle" height="64" width="64">
+          {{-- <img src="{{asset('images/portrait/small/avatar-s-26.jpg')}}" alt="users view avatar"
+            class="users-avatar-shadow rounded-circle" height="64" width="64"> --}}
+            <img src="{{url($user['profile_path'])}}" alt="users view avatar"
+            class="users-avatar-shadow rounded-circle" height="100" width="100">
         </a>
         <div class="media-body pt-25">
-          <h4 class="media-heading"><span class="users-view-name">Dean Stanley </span><span
-              class="text-muted font-medium-1"> @</span><span
-              class="users-view-username text-muted font-medium-1 ">candy007</span></h4>
-          <span>ID:</span>
-          <span class="users-view-id">305</span>
+          <h4 class="media-heading"><span class="users-view-name">{{$user['inst_name']}} </span><span
+              class="text-muted font-medium-1"> {{-- @</span><span
+              class="users-view-username text-muted font-medium-1 ">{{$user['center_id']}}</span> --}}</h4>
+          <span>CENTER ID:</span>
+          <span class="users-view-id">{{$user['center_id']}}</span><br><br>
+          <span>CONTACT NUMBER:</span>
+          <span class="users-view-id">{{$user['contact_no']}}</span>
         </div>
       </div>
     </div>
@@ -42,24 +46,46 @@
             <tbody>
               <tr>
                 <td>Registered:</td>
-                <td>01/01/2019</td>
+                <td>{{date('Y M d',strtotime($user['register_dt']))}}</td>
               </tr>
               <tr>
                 <td>Latest Activity:</td>
                 <td class="users-view-latest-activity">30/04/2019</td>
               </tr>
               <tr>
-                <td>Verified:</td>
-                <td class="users-view-verified">Yes</td>
+                <td>Mobile Verified:</td>
+                @if($user['mobile_verified'] == 0)
+                    <td class="users-view-verified"><div class="badge badge-pill badge-light-danger">Pending</div></td>
+                @else
+                    <td class="users-view-verified"><div class="badge badge-pill badge-light-success">Success</div></td> 
+                @endif
               </tr>
               <tr>
-                <td>Role:</td>
-                <td class="users-view-role">Staff</td>
+                <td>Email verified:</td>
+                @if($user['email_verified'] == 0)
+                    <td class="users-view-verified"><div class="badge badge-pill badge-light-danger">Pending</div></td>
+                @else
+                    <td class="users-view-verified"><div class="badge badge-pill badge-light-success">Success</div></td> 
+                @endif
               </tr>
               <tr>
-                <td>Status:</td>
-                <td><span class="badge badge-light-success users-view-status">Active</span></td>
+                <td>Payment Status:</td>
+                @if($user['block_transaction'] != 'ACTIVE')
+                    <td class="users-view-verified"><div class="badge badge-pill badge-light-danger">Blocked</div></td>
+                @else
+                    <td class="users-view-verified"><div class="badge badge-pill badge-light-success">Active</div></td> 
+                @endif
               </tr>
+              <tr>
+                <td>Affiliate Login Status:</td>
+                @if($user['is_active'] != 'ACTIVE')
+                    <td class="users-view-verified"><div class="badge badge-pill badge-light-danger">Blocked</div></td>
+                @else
+                    <td class="users-view-verified"><div class="badge badge-pill badge-light-success">Active</div></td> 
+                @endif
+                {{-- <td><span class="badge badge-light-success users-view-status">Active</span></td> --}}
+              </tr>
+
             </tbody>
           </table>
         </div>
@@ -110,13 +136,13 @@
     <div class="card-body">
       <div class="row bg-primary bg-lighten-5 rounded mb-2 mx-25 text-center text-lg-left">
         <div class="col-12 col-sm-4 p-2">
-          <h6 class="text-primary mb-0">Posts: <span class="font-large-1 align-middle">125</span></h6>
+          <h6 class="text-primary mb-0">Total balance: <span class="font-large-1 align-middle">&#8377;125</span></h6>
         </div>
         <div class="col-12 col-sm-4 p-2">
-          <h6 class="text-primary mb-0">Followers: <span class="font-large-1 align-middle">534</span></h6>
+          <h6 class="text-primary mb-0">Students: <span class="font-large-1 align-middle">534</span></h6>
         </div>
         <div class="col-12 col-sm-4 p-2">
-          <h6 class="text-primary mb-0">Following: <span class="font-large-1 align-middle">256</span></h6>
+          <h6 class="text-primary mb-0">University: <span class="font-large-1 align-middle">256</span></h6>
         </div>
       </div>
       <div class="col-12">
@@ -124,24 +150,24 @@
           <tbody>
             <tr>
               <td>Username:</td>
-              <td class="users-view-username">dean3004</td>
+              <td class="users-view-username">{{$user['username']}}</td>
             </tr>
             <tr>
-              <td>Name:</td>
-              <td class="users-view-name">Dean Stanley</td>
+              <td>Diretor Name:</td>
+              <td class="users-view-name">{{Ucfirst($user['dir_name'])}}</td>
             </tr>
             <tr>
               <td>E-mail:</td>
-              <td class="users-view-email">deanstanley@gmail.com</td>
+              <td class="users-view-email">{{$user['email']}}</td>
             </tr>
             <tr>
-              <td>Comapny:</td>
-              <td>XYZ Corp. Ltd.</td>
+              <td>Institute Name:</td>
+              <td>{{$user['inst_name']}}</td>
             </tr>
 
           </tbody>
         </table>
-        <h5 class="mb-1"><i class="bx bx-link"></i> Social Links</h5>
+        {{-- <h5 class="mb-1"><i class="bx bx-link"></i> Social Links</h5>
         <table class="table table-borderless">
           <tbody>
             <tr>
@@ -157,25 +183,25 @@
               <td><a href="javascript:void(0);">https://www.instagram.com/</a></td>
             </tr>
           </tbody>
-        </table>
-        <h5 class="mb-1"><i class="bx bx-info-circle"></i> Personal Info</h5>
+        </table> --}}
+        <h5 class="mb-1"><i class="bx bx-info-circle"></i> Affilicate Details</h5>
         <table class="table table-borderless mb-0">
           <tbody>
             <tr>
-              <td>Birthday:</td>
-              <td>03/04/1990</td>
+              <td>Address:</td>
+              <td>{{ucfirst($user['address'])}}</td>
             </tr>
             <tr>
-              <td>Country:</td>
-              <td>USA</td>
+              <td>Town/Locality:</td>
+              <td>{{ucfirst($user['locality'])}}</td>
             </tr>
             <tr>
-              <td>Languages:</td>
-              <td>English</td>
+                <td>State/City:</td>
+                <td>English</td>
             </tr>
             <tr>
-              <td>Contact:</td>
-              <td>+(305) 254 24668</td>
+                <td>Pincode:</td>
+                <td>{{$user['pincode']}}</td>
             </tr>
           </tbody>
         </table>

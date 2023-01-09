@@ -87,6 +87,11 @@ class AuthenticationController extends Controller
         return redirect()->route('admin-dashboard');
       }
       else if($request->get('typeValue') == 2){
+        if(Auth::user()->is_active === 'INACTIVE'){
+          return back()->withErrors([
+            'email' => 'Affiliate is not Active,Please contact to admin.',
+          ])->onlyInput('email');
+        }
         return redirect()->route('affiliates-dashboard');
       }
       else if($request->get('typeValue') == 3){
@@ -99,6 +104,45 @@ class AuthenticationController extends Controller
     }
     
   }
+
+  public function AffloginVerfication(Request $request){
+
+    $this->validate($request,[
+        'center_id'  => 'required|numeric',
+        'password' => 'required|max:50'
+      ],
+      [
+        'center_id.required' => 'Center id is required or numeric',
+        'password.required' => 'Password is required'
+      ]
+    );
+
+    if(Auth::attempt(['username' => $request->center_id, 'password' => $request->password, 'user_type' => $request->get('typeValue')])){
+      $request->session()->regenerate();
+      // dd(Auth::user());
+      session()->put('user_id', Auth::user()->id);
+      session()->put('user_type', Auth::user()->user_type);
+      session()->put('first_name', Auth::user()->first_name);
+      session()->put('last_name', Auth::user()->last_name);
+      session()->put('user_name', Auth::user()->username);
+      
+      if($request->get('typeValue') == 2){
+        if(Auth::user()->is_active === 'INACTIVE'){
+          return back()->withErrors([
+            'center_id' => 'Affiliate is not Active,Please contact to admin.',
+          ])->onlyInput('center_id');
+        }
+        return redirect()->route('affiliates-dashboard');
+      }
+    }else{
+      return back()->withErrors([
+        'denter_id' => 'The provided credentials do not match our records.',
+      ])->onlyInput('denter_id');
+    }
+    
+  }
+
+
   //Affiliate registation
   
   public function affiliatesRegister(){

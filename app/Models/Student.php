@@ -40,7 +40,9 @@ class Student extends Authenticatable
         'student_type',
         'category',
         'is_active',
-        'school_name'
+        'school_name',
+        'dob',
+        'register_id'
     ];
 
     protected $hidden = [

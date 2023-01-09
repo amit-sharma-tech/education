@@ -65,8 +65,8 @@
                       class="form-group d-flex flex-md-row flex-column justify-content-between align-items-center">
                       <div class="text-left">
                           <div class="checkbox checkbox-sm">
-                            <a href="{{asset('auth/affiliate_register')}}"
-                              class="card-link"><small>Affiliate Registation</small></a>
+                            {{-- <a href="{{asset('auth/affiliate_register')}}"
+                              class="card-link"><small>Affiliate Registation</small></a> --}}
                               {{-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> --}}
                           </div>
                       </div>
