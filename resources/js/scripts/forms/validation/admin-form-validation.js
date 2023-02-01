@@ -183,7 +183,7 @@ $(document).ready(function($){
         }
       });
       $.ajax({
-        type:'post',
+        type:'get',
         url:"getCityNameListStudent",
         data:{ssId:selectOption},
         success:function(data){

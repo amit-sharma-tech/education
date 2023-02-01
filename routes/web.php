@@ -105,13 +105,15 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('affiliate/inactiveAffiliateFromList', [AdminDashboardController::class, 'inactiveAffiliateFromList'])->name('delete-affiliate-from-list')->middleware('is_admin');
     Route::get('affiliate/affiliateview/{id}', [AdminDashboardController::class, 'AffiliateProfileView'])->name('affiliate-list')->middleware('is_admin');
     Route::get('affiliate/adminAffiliateEdit/{id}', [AdminDashboardController::class, 'adminAffiliateEditBtn'])->name('admin-affiliate-registration')->middleware('is_admin');
-    
+    Route::post('affiliate/submitAffiliateProfileEdit', [AdminDashboardController::class, 'submitAffiliateProfileEditSub'])->name('admin-affiliate-registration')->middleware('is_admin');
+    Route::get('affiliate/affiliateCertifcate/{id}', [AdminDashboardController::class, 'affiliateCertifcate'])->name('admin-affiliate-registration')->middleware('is_admin');
+
     //Student management
     Route::get('student/stRegistration', [StudentController::class, 'studentRegistation'])->name('admin-student-registration')->middleware('is_admin');
     Route::post('student/submitstRegistration', [StudentController::class, 'submitstRegistrationbtn'])->name('admin-student-registration')->middleware('is_admin');
     Route::post('student/submitstEditRegistration', [StudentController::class, 'submitstEditRegistration'])->middleware('is_admin');
     Route::get('student/stList', [StudentController::class, 'stListOfStudent'])->name('admin-student-list')->middleware('is_admin');
-    Route::post('student/getCityNameListStudent', [StudentController::class, 'getCityNameListStudent'])->name('getCityNameListStudent')->middleware('is_admin');
+    Route::get('student/getCityNameListStudent', [StudentController::class, 'getCityNameListStudent'])->name('getCityNameListStudent')->middleware('is_admin');
     Route::post('student/getCourseListName', [StudentController::class, 'getCourseListNameList'])->name('getCourseName')->middleware('is_admin');
     Route::get('student/adminStudentEdit/{id}', [StudentController::class, 'adminStudentEditSub'])->name('admin-student-registration')->middleware('is_admin');
     //Student university

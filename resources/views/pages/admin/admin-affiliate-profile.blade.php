@@ -31,9 +31,10 @@
     </div>
     
     <div class="col-12 col-sm-5 px-0 d-flex justify-content-end align-items-center px-1 mb-2">
-      <a href="javascript:void(0);" class="btn btn-sm mr-25 border"><i class="bx bx-envelope font-small-3"></i></a>
-      <a href="javascript:void(0);" class="btn btn-sm mr-25 border">Profile</a>
-      <a href="{{asset('app/users/edit')}}" class="btn btn-sm btn-primary">Edit</a>
+      {{-- <a href="javascript:void(0);" class="btn btn-sm mr-25 border"><i class="bx bx-envelope font-small-3"></i></a> --}}
+      {{-- <a href="javascript:void(0);" class="btn btn-sm mr-25 border">Certificate</a> --}}
+      {{-- <a href="{{asset('app/users/edit')}}" class="btn btn-sm btn-primary">Certificate</a> --}}
+      <a href="{{url('admin/affiliate/affiliateCertifcate/'.$user['samanwiedu_id'])}}" class="btn btn-sm btn-primary">Certificate</a>
     </div>
   </div>
   <!-- users view media object ends -->
