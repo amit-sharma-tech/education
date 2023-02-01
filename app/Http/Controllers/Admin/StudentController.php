@@ -317,7 +317,6 @@ class StudentController extends Controller
 
     public function getCityNameListStudent(Request $request){
         
-        // dd(Str::length($req['ssId']));
         $req = $request->validate([
             'ssId' => 'required',
         ]);

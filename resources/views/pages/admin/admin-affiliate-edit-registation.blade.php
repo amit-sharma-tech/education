@@ -21,15 +21,11 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          @if ($affiliateEdit)
-              <h4 class="card-title">Edit Center Profile</h4>
-          @else
-            <h4 class="card-title">Center Profile</h4>
-          @endif
+          <h4 class="card-title">Edit Center Profile</h4>
         </div>
         <div class="card-body">
           @if (@$affiliateEdit)
-            <form id="affliate-myprofile-validate" action="{{url('admin/affiliate/submitAffiliateProfileEdit')}}" method="POST" enctype=multipart/form-data>
+            <form id="affliate-myprofile-validate" action="{{url('admin/affiliate/submitAffiliateProfile')}}" method="POST" enctype=multipart/form-data>
               @csrf
               @if ($errors->any())
                 <div class="alert alert-danger alert-dismissible mb-2" role="alert">
@@ -44,7 +40,6 @@
                   </ul>
                   </div>
                 </div>
-                <input type="hidden" name="hiddenId" value="@isset($affiliateEdit){{trim($affiliateEdit['id'])}}@endisset">
               @endif
               {{-- @method('PUT') --}}
               <div class="row">
@@ -59,7 +54,7 @@
                       name="aff-inst-name"
                       placeholder="Center/Institute name"
                       autocomplete="off"
-                      value="{{ $affiliateEdit['inst_name'] }}"
+                      value="{{ $affiliateEdit['center_id'] }}"
                     />
                     @error('aff-inst-name')
                       <div class="fv-plugins-message-container invalid-feedback">
@@ -107,7 +102,7 @@
                       name="aff-dir-password"
                       placeholder="Password"
                       autocomplete="off"
-                      value="{{ $affiliateEdit['password'] }}"
+                      value="{{$$affiliateEdit['password']}}"
                       readonly
                     />
                     @error('aff-dir-password')
@@ -211,16 +206,9 @@
                     <select class="form-control select2 @error('select-state') is-invalid
                     @enderror" id="select-state-affilicate" name="select-state">
                       <option value="0" name="select_state">Select State</option>
-                      @if (isset($affiliateEdit))
-                        @foreach ($State as $list)
-                          <option value="{{ $list->state_id }}" {{ ($affiliateEdit['state'] == $list->state_id ? "selected":"") }}>{{ $list->state_title }}</option>
-
-                        @endforeach
-                      @else
-                        @foreach ($State as $list)
-                          <option value="{{$list->state_id}}" name="{{$list->state_title}}" id="id_{{$list->state_id}}">{{$list->state_title}}</option>
-                        @endforeach
-                      @endif
+                      @foreach($State as $post)
+                        <option value="{{$post->state_id}}" name="{{$post->state_title}}" id="id_{{$post->state_id}}">{{$post->state_title}}</option>
+                      @endforeach
                     </select>
                     {{-- @error('select_state')
                       <div class="fv-plugins-message-container invalid-feedback">
@@ -238,11 +226,7 @@
                     <select class="form-control select2 @error('select-city') is-invalid
                     @enderror" id="select-city-affilicate" name="select-city">
                       <option value="">Select City</option>
-                      @if (isset($affiliateEdit))
-                        @foreach ($citiesList as $list)
-                          <option value="{{ $list->id }}" {{ ($affiliateEdit['city'] == $list->id ? "selected":"") }}>{{ $list->name }}</option>
-                        @endforeach
-                      @endif
+                      
                     </select>
                     @error('select-city')
                       <div class="fv-plugins-message-container invalid-feedback">
@@ -267,7 +251,7 @@
                     <label class="form-label" for="aff-registered-no">Registration Date</label>
                     <fieldset class="form-group position-relative has-icon-left">
                       <input type="text" class="form-control pickadate @error('register_date') is-invalid
-                      @enderror" name="register_date" placeholder="Select Date" value="{{ $affiliateEdit['register_dt'] }}" autocomplete="off" readonly>
+                      @enderror" name="register_date" placeholder="Select Date" value="{{ $affiliateEdit['register_dt'] }}" autocomplete="off">
                       @error('register_date')
                         <div class="fv-plugins-message-container invalid-feedback">
                           <div data-field="register_date" data-validator="notEmpty">{{$message}}

@@ -190,4 +190,27 @@ $(document).ready(function () {
       window.print();
     })
   }
+
+  // if ($(".affliate_certificate_print").length > 0) {
+    $(".affliate_certificate_print").on("click", function () {
+      window.print();
+    })
+  // }
+
+  
 });
+
+var doc = new jsPDF();
+    var specialElementHandlers = {
+        '#editor': function (element, renderer) {
+            return true;
+        }
+    };
+
+    $('#affliate_certificate_print').click(function () {
+        doc.fromHTML($('#content').html(), 15, 15, {
+            'width': 170,
+                'elementHandlers': specialElementHandlers
+        });
+        doc.save('sample-file.pdf');
+    });
